@@ -620,7 +620,7 @@ See [`GraphProbe-X-FINAL-2026/docs/JUDGE_QA.md`](GraphProbe-X-FINAL-2026/docs/JU
 ## Limitations
 
 1. **Index build time**: 2-3 hours for 2,951 docs (one-time)
-2. **Token cost**: Agentic uses 2-5× RAG tokens on complex questions
+2. **Token cost**: Agentic can use more tokens than simpler pipelines because additional investigation adds tool/model calls; actual cost is reported from measured runs
 3. **Latency**: Additional investigation adds retrieval round-trips
 4. **Graph coverage**: Only MENTIONS relation fully extracted; domain relations require NLP/NER
 5. **LLM dependency**: Evidence extraction depends on LLM quality
@@ -644,10 +644,10 @@ MIT
 ## Citation
 
 ```bibtex
-@software{graphprobe_x_2024,
+@software{graphprobe_x_2026,
   title={GraphProbe-X: Evidence-Driven Adaptive Agentic GraphRAG},
-  author={Your Team},
-  year={2024},
+  author={GraphProbe-X Team},
+  year={2026},
   url={https://github.com/shashankkumar8/GraphProbe-X}
 }
 ```
