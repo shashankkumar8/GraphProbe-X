@@ -15,7 +15,7 @@ Open: http://localhost:8501
 ### 1. Easy Question (RAG Sufficient)
 **Question**: "Which city hosted the 2016 Summer Olympics?"
 
-**Expected**: RAG or deterministic solver answers immediately
+**Expected**: Direct retrieval should be sufficient; demonstrate the actual pipeline/trace produced by the current run.
 
 **Show**:
 - Answer: "Rio de Janeiro"
@@ -85,26 +85,28 @@ Open: http://localhost:8501
 
 ---
 
-### 5. Cost/Quality Comparison
-**Show Dashboard "Benchmarks" tab**:
+### 5. Cost / Quality Comparison
 
-| Metric | RAG | GraphRAG | Agentic |
-|--------|-----|----------|---------|
-| Accuracy | 0.93* | 0.95* | 0.96* |
-| Avg Tokens | 732 | 1,247 | 2,156 |
-| Avg Latency (ms) | 598 | 892 | 1,547 |
-| Early Stop Rate | N/A | N/A | 42% |
-| Escalation Rate | N/A | N/A | 58% |
+**Show Dashboard → Benchmarks / Token Economics**
 
-*Numbers from smoke-test, pending real benchmark
+Use the **actual values displayed by the current run**. Do not use hard-coded or illustrative accuracy/token/latency numbers.
 
-**Explain**:
-- RAG: Fastest, cheapest, good for simple questions
-- GraphRAG: Moderate cost, better for entity-centric questions
-- Agentic: Highest cost, best for complex questions requiring investigation
-- **Agentic Tax**: (2156 - 732) / 732 = 195% more tokens
+Show:
+- Accuracy and completeness
+- Input / output / total tokens
+- Latency
+- Tool calls and investigation steps
+- Early-stop / escalation behavior
+- Evidence gain per token
+- Agentic Tax, only when a real RAG baseline exists for the same run
 
-**Key insight**: Use cheapest sufficient strategy
+**Explain the research result, not a predetermined winner:**
+- RAG is the low-cost baseline for questions already supported by direct retrieval.
+- GraphRAG adds structural retrieval when relationships matter.
+- Agentic GraphRAG spends additional investigation budget only when the evidence state indicates a gap.
+- The important comparison is **quality gained per additional cost**.
+
+> **Demo integrity:** every displayed benchmark number must come from the saved result files/dashboard. If a metric is unavailable, display **N/A** rather than an illustrative value.
 
 ---
 
@@ -156,7 +158,7 @@ Show comparison table. Emphasize:
 ## Common Questions from Judges
 
 **Q: Why not always use agents?**
-A: Cost. Agentic uses 2-5× tokens. For simple questions, RAG is sufficient and cheaper.
+A: Cost. Agentic can cost more than simpler pipelines because investigation adds actions; the dashboard measures whether that extra cost produced additional verified evidence.
 
 **Q: How do you prevent wrong-event contamination?**
 A: Target-aware verification. We check that evidence refers to the correct event/entity, not just any event with similar names.
