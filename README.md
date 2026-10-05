@@ -74,6 +74,104 @@ Fair comparison requires identical substrate:
 
 ---
 
+## 🔬 Detailed Mermaid Architecture
+
+```mermaid
+graph TB
+    Q[User Question] --> C[Evidence Contract Generator]
+    C --> IR[Cheap Initial Retrieval<br/>BM25 + Dense / RRF]
+    IR --> EL[Evidence Ledger<br/>Claims + Requirements + Provenance]
+    EL --> J{Evidence Judge<br/>Coverage + Contradiction + Target Match}
+    J -->|Sufficient| A[Grounded Answer<br/>Citations + Verification]
+    J -->|Gap remains| P[Adaptive Planner<br/>State-aware next action]
+
+    P --> D{Choose Tool by Gap + Expected Gain/Cost}
+    D --> T1[entity_link]
+    D --> T2[vector_search]
+    D --> T3[graph_traverse<br/>TigerGraph]
+    D --> T4[document_retrieve]
+    D --> T5[aggregate<br/>Deterministic]
+    D --> T6[multi_hop_reason]
+    D --> T7[verify_evidence]
+
+    T1 --> V[Evidence Verification]
+    T2 --> V
+    T3 --> V
+    T4 --> V
+    T5 --> V
+    T6 --> V
+    T7 --> V
+    V --> EL
+
+    EL --> G[Governor<br/>MAX_STEPS + MAX_TOKENS + MAX_CALLS<br/>Duplicate + No-progress + Low-gain guards]
+    G -->|CONTINUE| P
+    G -->|STOP / FALLBACK| A
+
+    TG[(TigerGraph<br/>Document → Chunk → Entity<br/>+ provenance)]
+    T3 <--> TG
+    T1 --> TG
+
+    SRC[(Olympic / Wikipedia Corpus<br/>2,951 documents)] --> IR
+    SRC --> T4
+    SRC --> T5
+
+    M[Telemetry<br/>Tokens • Latency • Steps • Tools<br/>Strategy Changes • Evidence Gain • Stop Reason] --> EL
+    EL --> M
+```
+
+### Adaptive Control Semantics
+
+```mermaid
+flowchart LR
+    S[Current State<br/>Question + Contract + Ledger + History + Budget] --> X[Gap Detection]
+    X --> U[Candidate Actions]
+    U --> R[Utility Ranking<br/>Expected Evidence Gain / Estimated Cost]
+    R --> F[Deterministic Policy Checks]
+    F --> E[Execute One Best Eligible Action]
+    E --> V[Verify Target + Quote + Provenance]
+    V --> N[Measure Observed Evidence Gain]
+    N --> S
+    S --> H{Governor}
+    H -->|Enough verified evidence| STOP[STOP]
+    H -->|Useful progress possible| U
+    H -->|Budget / no-progress / low-gain| FALL[STOP / FALLBACK]
+```
+
+**Key property:** there is no hard-coded `Vector → Graph → Vector → Answer` chain. The next action is a function of the current evidence state, unresolved requirements, previous actions, target entities/relationships, and remaining budget.
+
+### Submission Readiness Snapshot
+
+| Hackathon requirement | Repository support |
+|---|---|
+| RAG + GraphRAG + Agentic pipelines | Implemented |
+| Architecture diagram | README + detailed Mermaid diagrams |
+| Public source + setup | Included |
+| Metrics / telemetry dashboard | Included |
+| Public benchmark harness (100) | Included |
+| Hidden-set workflow | Harness supports it; final hidden result remains unverified |
+| Evidence Contract + Ledger | Implemented |
+| Target-aware verification | Implemented |
+| TigerGraph integration | Schema/query integration included; live-cluster validation separately tracked |
+| Cost-aware Governor | Implemented |
+| MCP tools | Included |
+| Reproducible traces | Per-question JSON + telemetry |
+
+> **Evaluation integrity:** architecture and smoke-test validation are distinguished from final benchmark claims. Unverified accuracy, hidden-set scores, or live-cluster measurements are not presented as facts.
+
+### Why This Architecture Matters
+
+**Accuracy:** answers are tied to explicit evidence requirements and verified source/graph provenance.
+
+**Agentic effectiveness:** investigation is state-driven; the system can stop after one action or escalate through different tools when gaps remain.
+
+**Efficiency:** each additional action is costed, metered, and subject to hard stopping rules.
+
+**Engineering:** critical execution, verification, aggregation, and budget enforcement are deterministic and auditable rather than delegated blindly to the LLM.
+
+**Innovation:** the contribution is an explicit answerability-and-investigation control loop that treats agentic reasoning as a measurable cost/benefit decision.
+
+---
+
 ## Agentic Investigation Loop
 
 ```
