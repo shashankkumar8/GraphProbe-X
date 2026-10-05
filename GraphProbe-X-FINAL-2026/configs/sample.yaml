@@ -1,0 +1,4 @@
+_base: config.yaml
+paths: {processed: data/processed_sample, results: results_sample}
+data: {corpus: data/sample/corpus.jsonl, public: data/sample/eval_public.jsonl, hidden: data/sample/eval_hidden.jsonl}
+agentic: {min_dense_score: 0.05}

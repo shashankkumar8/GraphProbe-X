@@ -1,0 +1,1 @@
+$py=".\.venv\Scripts\python.exe"; if(-not(Test-Path $py)){$py="python"}; & $py -m scripts.serve --port 8000

@@ -1,0 +1,443 @@
+{
+ "pipeline": "graphrag",
+ "variant": "full",
+ "split": "hidden",
+ "model": "openai/gpt-4o-mini",
+ "n": 6,
+ "results": [
+  {
+   "id": "h0",
+   "question": "Who won the 1996 Lumen Cup?",
+   "pipeline": "graphrag",
+   "answer": "The evidence provided does not contain any information regarding the winner of the 1996 Lumen Cup. Therefore, I cannot confirm who won the 1996 Lumen Cup.",
+   "citations": [],
+   "tokens": {
+    "context_est": 2409,
+    "input": 2631,
+    "output": 35,
+    "total": 2666,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2631,
+      "tokens_out": 35,
+      "latency_ms": 3651.9618034362793,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 9154.3,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q101730::1",
+    "Q8037913::0",
+    "Q8037928::0",
+    "Q644408::8",
+    "Q101730::2",
+    "Q4951830::0",
+    "Q101730::30",
+    "Q3628768::0"
+   ],
+   "trace": {
+    "seeds": [
+     "1996"
+    ],
+    "graph_candidates": 300,
+    "graph_paths": {
+     "Q101730::2": [
+      "1996",
+      "MENTIONED_IN",
+      "Q101730::2"
+     ],
+     "Q4951830::0": [
+      "1996",
+      "MENTIONED_IN",
+      "Q4951830::0"
+     ],
+     "Q101730::30": [
+      "1996",
+      "MENTIONED_IN",
+      "Q101730::30"
+     ],
+     "Q3628768::0": [
+      "1996",
+      "MENTIONED_IN",
+      "Q3628768::0"
+     ]
+    }
+   }
+  },
+  {
+   "id": "h1",
+   "question": "Which country did the winner of the 1992 Aster Games represent?",
+   "pipeline": "graphrag",
+   "answer": "The winner of the 1992 Aster Games, specifically in the Flying Dutchman sailing event at the 1992 Summer Olympics, represented Spain (NOC: ESP) [Q7400304::0].",
+   "citations": [
+    "Q7400304::0"
+   ],
+   "tokens": {
+    "context_est": 2135,
+    "input": 2331,
+    "output": 43,
+    "total": 2374,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2331,
+      "tokens_out": 43,
+      "latency_ms": 4221.903085708618,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 9870.1,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q7400304::0",
+    "Q31843476::0",
+    "Q988374::0",
+    "Q1027135::1",
+    "Q870647::0",
+    "Q1649415::2",
+    "Q744487::1",
+    "Q1005641::0"
+   ],
+   "trace": {
+    "seeds": [
+     "1992"
+    ],
+    "graph_candidates": 300,
+    "graph_paths": {
+     "Q870647::0": [
+      "1992",
+      "MENTIONED_IN",
+      "Q870647::0"
+     ],
+     "Q1649415::2": [
+      "1992",
+      "MENTIONED_IN",
+      "Q1649415::2"
+     ],
+     "Q744487::1": [
+      "1992",
+      "MENTIONED_IN",
+      "Q744487::1"
+     ],
+     "Q1005641::0": [
+      "1992",
+      "MENTIONED_IN",
+      "Q1005641::0"
+     ]
+    }
+   }
+  },
+  {
+   "id": "h2",
+   "question": "Who won the 1997 Borealis Trophy and where was it held?",
+   "pipeline": "graphrag",
+   "answer": "The evidence does not provide information about the winner of the 1997 Borealis Trophy or the location where it was held. Therefore, I cannot confirm either part of the question.",
+   "citations": [],
+   "tokens": {
+    "context_est": 2213,
+    "input": 2237,
+    "output": 36,
+    "total": 2273,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2237,
+      "tokens_out": 36,
+      "latency_ms": 5359.061241149902,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 10872.7,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q1004937::0",
+    "Q748648::1",
+    "Q110324226::2",
+    "Q47295256::3",
+    "Q47735::30",
+    "Q2808::32",
+    "Q101730::1",
+    "Q696928::0"
+   ],
+   "trace": {
+    "seeds": [
+     "1997"
+    ],
+    "graph_candidates": 300,
+    "graph_paths": {
+     "Q47735::30": [
+      "1997",
+      "MENTIONED_IN",
+      "Q47735::30"
+     ],
+     "Q2808::32": [
+      "1997",
+      "MENTIONED_IN",
+      "Q2808::32"
+     ],
+     "Q101730::1": [
+      "1997",
+      "MENTIONED_IN",
+      "Q101730::1"
+     ],
+     "Q696928::0": [
+      "1997",
+      "MENTIONED_IN",
+      "Q696928::0"
+     ]
+    }
+   }
+  },
+  {
+   "id": "h3",
+   "question": "Who won the 1994 Borealis Trophy?",
+   "pipeline": "graphrag",
+   "answer": "The evidence provided does not contain any information regarding the winner of the 1994 Borealis Trophy. Therefore, I cannot confirm who won the 1994 Borealis Trophy.",
+   "citations": [],
+   "tokens": {
+    "context_est": 1914,
+    "input": 1980,
+    "output": 35,
+    "total": 2015,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 1980,
+      "tokens_out": 35,
+      "latency_ms": 7190.906524658203,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 12575.9,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q9663::21",
+    "Q9663::36",
+    "Q9663::19",
+    "Q47735::19",
+    "Q2263::13",
+    "Q101730::0",
+    "Q1005640::0",
+    "Q101730::16"
+   ],
+   "trace": {
+    "seeds": [
+     "1994"
+    ],
+    "graph_candidates": 300,
+    "graph_paths": {
+     "Q2263::13": [
+      "1994",
+      "MENTIONED_IN",
+      "Q2263::13"
+     ],
+     "Q101730::0": [
+      "1994",
+      "MENTIONED_IN",
+      "Q101730::0"
+     ],
+     "Q1005640::0": [
+      "1994",
+      "MENTIONED_IN",
+      "Q1005640::0"
+     ],
+     "Q101730::16": [
+      "1994",
+      "MENTIONED_IN",
+      "Q101730::16"
+     ]
+    }
+   }
+  },
+  {
+   "id": "h4",
+   "question": "Which country did the winner of the 1993 Borealis Trophy represent?",
+   "pipeline": "graphrag",
+   "answer": "The evidence provided does not contain any information regarding the winner of the 1993 Borealis Trophy or the country they represented. Therefore, I cannot confirm which country the winner represented.",
+   "citations": [],
+   "tokens": {
+    "context_est": 2454,
+    "input": 2385,
+    "output": 36,
+    "total": 2421,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2385,
+      "tokens_out": 36,
+      "latency_ms": 3094.154119491577,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 5730.3,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q10152::6",
+    "Q10152::23",
+    "Q5198393::2",
+    "Q3001408::1",
+    "Q4573::34",
+    "Q314935::0",
+    "Q543664::3",
+    "Q180280::8"
+   ],
+   "trace": {
+    "seeds": [
+     "1993"
+    ],
+    "graph_candidates": 300,
+    "graph_paths": {
+     "Q4573::34": [
+      "1993",
+      "MENTIONED_IN",
+      "Q4573::34"
+     ],
+     "Q314935::0": [
+      "1993",
+      "MENTIONED_IN",
+      "Q314935::0"
+     ],
+     "Q543664::3": [
+      "1993",
+      "MENTIONED_IN",
+      "Q543664::3"
+     ],
+     "Q180280::8": [
+      "1993",
+      "MENTIONED_IN",
+      "Q180280::8"
+     ]
+    }
+   }
+  },
+  {
+   "id": "h5",
+   "question": "Who won the 1995 Aster Games and where was it held?",
+   "pipeline": "graphrag",
+   "answer": "The evidence does not provide information about the winner of the 1995 Aster Games or the location where it was held. Therefore, I cannot confirm either part of the question.",
+   "citations": [],
+   "tokens": {
+    "context_est": 2519,
+    "input": 2413,
+    "output": 36,
+    "total": 2449,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2413,
+      "tokens_out": 36,
+      "latency_ms": 3933.896780014038,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 7780.8,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q22964455::1",
+    "Q5198390::1",
+    "Q303268::0",
+    "Q4443767::1",
+    "Q132351::19",
+    "Q10152::6",
+    "Q3884::3",
+    "Q2685::66"
+   ],
+   "trace": {
+    "seeds": [
+     "1995"
+    ],
+    "graph_candidates": 300,
+    "graph_paths": {
+     "Q132351::19": [
+      "1995",
+      "MENTIONED_IN",
+      "Q132351::19"
+     ],
+     "Q10152::6": [
+      "1995",
+      "MENTIONED_IN",
+      "Q10152::6"
+     ],
+     "Q3884::3": [
+      "1995",
+      "MENTIONED_IN",
+      "Q3884::3"
+     ],
+     "Q2685::66": [
+      "1995",
+      "MENTIONED_IN",
+      "Q2685::66"
+     ]
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,275 @@
+{
+ "pipeline": "rag",
+ "variant": "full",
+ "split": "hidden",
+ "model": "openai/gpt-4o-mini",
+ "n": 6,
+ "results": [
+  {
+   "id": "h0",
+   "question": "Who won the 1996 Lumen Cup?",
+   "pipeline": "rag",
+   "answer": "The evidence provided does not contain any information regarding the winner of the 1996 Lumen Cup. Therefore, I cannot confirm who won the 1996 Lumen Cup.",
+   "citations": [],
+   "tokens": {
+    "context_est": 2280,
+    "input": 2508,
+    "output": 35,
+    "total": 2543,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2508,
+      "tokens_out": 35,
+      "latency_ms": 4434.8814487457275,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 7322.4,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q101730::1",
+    "Q8037913::0",
+    "Q8037928::0",
+    "Q644408::8",
+    "Q101730::2",
+    "Q47735::19",
+    "Q7400323::0",
+    "Q848641::0"
+   ]
+  },
+  {
+   "id": "h1",
+   "question": "Which country did the winner of the 1992 Aster Games represent?",
+   "pipeline": "rag",
+   "answer": "The winner of the 1992 Aster Games, specifically in the Flying Dutchman sailing event at the 1992 Summer Olympics, was Luis Doreste Domingo Manrique, who represented Spain (NOC: ESP) [Q7400304::0].",
+   "citations": [
+    "Q7400304::0"
+   ],
+   "tokens": {
+    "context_est": 2287,
+    "input": 2482,
+    "output": 53,
+    "total": 2535,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2482,
+      "tokens_out": 53,
+      "latency_ms": 3982.419729232788,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 6642.5,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q7400304::0",
+    "Q31843476::0",
+    "Q988374::0",
+    "Q1027135::1",
+    "Q1534918::0",
+    "Q31843476::1",
+    "Q2303677::1",
+    "Q2310230::0"
+   ]
+  },
+  {
+   "id": "h2",
+   "question": "Who won the 1997 Borealis Trophy and where was it held?",
+   "pipeline": "rag",
+   "answer": "The evidence provided does not confirm who won the 1997 Borealis Trophy or where it was held. The information available pertains to various Olympic events and does not mention the Borealis Trophy specifically. Therefore, I cannot provide an answer to your question based on the evidence given.",
+   "citations": [],
+   "tokens": {
+    "context_est": 2525,
+    "input": 2523,
+    "output": 55,
+    "total": 2578,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2523,
+      "tokens_out": 55,
+      "latency_ms": 6082.740545272827,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 8673.1,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q1004937::0",
+    "Q748648::1",
+    "Q110324226::2",
+    "Q47295256::3",
+    "Q9663::1",
+    "Q303268::0",
+    "Q110316274::6",
+    "Q110316274::2"
+   ]
+  },
+  {
+   "id": "h3",
+   "question": "Who won the 1994 Borealis Trophy?",
+   "pipeline": "rag",
+   "answer": "The evidence provided does not mention the Borealis Trophy or its winner in 1994. Therefore, I cannot confirm who won the 1994 Borealis Trophy.",
+   "citations": [],
+   "tokens": {
+    "context_est": 1661,
+    "input": 2378,
+    "output": 33,
+    "total": 2411,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2378,
+      "tokens_out": 33,
+      "latency_ms": 4445.939540863037,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 7235.4,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q9663::21",
+    "Q9663::36",
+    "Q9663::19",
+    "Q47735::19",
+    "Q1005212::3",
+    "Q1005292::0",
+    "Q4088890::3",
+    "Q4088890::1"
+   ]
+  },
+  {
+   "id": "h4",
+   "question": "Which country did the winner of the 1993 Borealis Trophy represent?",
+   "pipeline": "rag",
+   "answer": "The evidence provided does not contain any information regarding the winner of the 1993 Borealis Trophy or the country they represented. Therefore, I cannot confirm which country the winner represented.",
+   "citations": [],
+   "tokens": {
+    "context_est": 2369,
+    "input": 2305,
+    "output": 36,
+    "total": 2341,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2305,
+      "tokens_out": 36,
+      "latency_ms": 3206.667900085449,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 4136.6,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q10152::6",
+    "Q10152::23",
+    "Q5198393::2",
+    "Q3001408::1",
+    "Q47295100::3",
+    "Q47735::19",
+    "Q314935::0",
+    "Q1005212::0"
+   ]
+  },
+  {
+   "id": "h5",
+   "question": "Who won the 1995 Aster Games and where was it held?",
+   "pipeline": "rag",
+   "answer": "The evidence does not provide information about the winner of the 1995 Aster Games or the location where it was held. Therefore, I cannot confirm either part of the question.",
+   "citations": [],
+   "tokens": {
+    "context_est": 2468,
+    "input": 2545,
+    "output": 36,
+    "total": 2581,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "answer",
+      "tokens_in": 2545,
+      "tokens_out": 36,
+      "latency_ms": 4526.880502700806,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "latency_ms": 5599.1,
+   "n_chunks": 8,
+   "context_chunk_ids": [
+    "Q22964455::1",
+    "Q5198390::1",
+    "Q303268::0",
+    "Q4443767::1",
+    "Q632742::1",
+    "Q25793::1",
+    "Q7500796::1",
+    "Q1222644::0"
+   ]
+  }
+ ]
+}

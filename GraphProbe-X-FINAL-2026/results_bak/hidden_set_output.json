@@ -1,0 +1,2543 @@
+{
+ "manifest": {
+  "code_config_prompts_hash": "3bd879da0a316d13",
+  "corpus_hash": "27aef30bbe32",
+  "graph_backend": "memory",
+  "embedder": "hash512",
+  "agentic_params": {
+   "initial_k": 5,
+   "max_steps": 6,
+   "max_llm_calls": 10,
+   "max_tokens": 10000,
+   "min_gain": 0.05,
+   "patience": 2,
+   "coverage_threshold": 0.99,
+   "extract_chunks": 6,
+   "extract_words": 200,
+   "answer_chunks": 4,
+   "min_dense_score": 0.35,
+   "planner": "utility",
+   "judge_mode": "contract",
+   "use_memory": true,
+   "disabled_tools": [],
+   "gain_decay": 0.5
+  }
+ },
+ "questions": [
+  {
+   "id": "h0",
+   "question": "Who won the 1996 Lumen Cup?",
+   "answer": "The winner of the 1996 Lumen Cup is not explicitly mentioned in the provided evidence. However, Robert Scheidt won the gold medal in the Laser sailing event at the 1996 Summer Olympics, which may be related to the Lumen Cup context. The evidence supports that Robert Scheidt is a significant figure in sailing during that time, but it does not confirm that he won the Lumen Cup specifically. Therefore, the part that is not confirmed is whether the Lumen Cup and the Olympic event are the same or if Robert Scheidt's victory pertains directly to the Lumen Cup.",
+   "tokens": {
+    "context_est": 445,
+    "input": 3799,
+    "output": 296,
+    "total": 4095,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "analyze",
+      "tokens_in": 218,
+      "tokens_out": 86,
+      "latency_ms": 4464.118719100952,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 1850,
+      "tokens_out": 7,
+      "latency_ms": 3251.6205310821533,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 1139,
+      "tokens_out": 84,
+      "latency_ms": 4715.4436111450195,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "answer",
+      "tokens_in": 592,
+      "tokens_out": 119,
+      "latency_ms": 5788.2397174835205,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "agentic_trace": {
+    "question_type": "single_fact",
+    "contract": {
+     "requirements": [
+      {
+       "req_id": "R1",
+       "type": "entity",
+       "slot": "lumen_cup_winner",
+       "description": "The winner of the 1996 Lumen Cup must be proven.",
+       "required": true
+      }
+     ]
+    },
+    "steps": [
+     {
+      "step": 0,
+      "tool": "initial_retrieval",
+      "target": "Who won the 1996 Lumen Cup?",
+      "gap_type": null,
+      "reason": "always-run cheap retrieval",
+      "candidates": [],
+      "fallback": null,
+      "new_chunks": 8,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "top dense 0.61; linked ['1996']",
+      "tokens": 1857,
+      "latency_ms": 3251.6,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 1850,
+        "tokens_out": 7,
+        "latency_ms": 3251.6205310821533,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "step": 1,
+      "tool": "entity_link",
+      "target": "lumen cup winner",
+      "gap_type": "ENTITY_GAP",
+      "reason": "ENTITY_GAP on R1; chose entity_link (utility 1.562); judge recommended entity_link",
+      "candidates": [
+       {
+        "tool": "entity_link",
+        "target": "lumen cup winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.625,
+        "est_tokens": 400,
+        "utility": 1.562,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "vector_search",
+        "target": "Who won the 1996 Lumen Cup? The winner of the 1996 Lumen Cup must be proven.",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.3,
+        "est_tokens": 1500,
+        "utility": 0.2,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "graph_traverse",
+        "target": "E_1996",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q101730",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q8037913",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q8037928",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "auto:R1",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       }
+      ],
+      "fallback": null,
+      "new_chunks": 0,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "linked []",
+      "telemetry": null,
+      "tokens": 0,
+      "latency_ms": 0,
+      "ops": []
+     },
+     {
+      "step": 2,
+      "tool": "vector_search",
+      "target": "Who won the 1996 Lumen Cup? The winner of the 1996 Lumen Cup must be proven.",
+      "gap_type": "ENTITY_GAP",
+      "reason": "ENTITY_GAP on R1; chose vector_search (utility 0.2); judge recommended None",
+      "candidates": [
+       {
+        "tool": "entity_link",
+        "target": "lumen cup winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.312,
+        "est_tokens": 400,
+        "utility": 0.781,
+        "status": "rejected",
+        "reject_reason": "duplicate_action"
+       },
+       {
+        "tool": "vector_search",
+        "target": "Who won the 1996 Lumen Cup? The winner of the 1996 Lumen Cup must be proven.",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.3,
+        "est_tokens": 1500,
+        "utility": 0.2,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "graph_traverse",
+        "target": "E_1996",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q101730",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q8037913",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q8037928",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "auto:R1",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       }
+      ],
+      "fallback": null,
+      "new_chunks": 4,
+      "new_claims": [
+       "C1"
+      ],
+      "coverage_before": 0.0,
+      "coverage_after": 1.0,
+      "gain": 1.0,
+      "note": "top dense 0.68",
+      "telemetry": null,
+      "tokens": 1223,
+      "latency_ms": 4715.4,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 1139,
+        "tokens_out": 84,
+        "latency_ms": 4715.4436111450195,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "tool_sequence": [
+     "initial_retrieval",
+     "entity_link",
+     "vector_search"
+    ],
+    "n_actions": 2,
+    "strategy_changes": 1,
+    "fallbacks": 0,
+    "stop_reason": "sufficient_evidence",
+    "final_judge": {
+     "sufficient": true,
+     "coverage": 1.0,
+     "missing": [],
+     "contradictions": [],
+     "gap_type": null,
+     "recommended_action": null
+    },
+    "unresolved": [],
+    "verification": {
+     "reverified": 1,
+     "failed": 0,
+     "attempt2": 0
+    },
+    "ledger": [
+     {
+      "claim_id": "C1",
+      "req_id": "R1",
+      "value": "Robert Scheidt",
+      "claim_text": "Robert Scheidt won the gold medal in the Laser competition at the 1996 Summer Olympics.",
+      "status": "SUPPORTED",
+      "evidence_type": "FACT",
+      "sources": [
+       {
+        "doc_id": "Q7400318",
+        "chunk_id": "Q7400318::0",
+        "quote": "gold: Robert Scheidt goldNOC: BRA"
+       }
+      ],
+      "graph_paths": [],
+      "confidence": 1.0,
+      "derived_from": [],
+      "attempts": 1,
+      "meta": {}
+     }
+    ],
+    "confidence": 1.0,
+    "confidence_note": "mean confidence of best verified claim per required slot; NOT a calibrated probability"
+   },
+   "citations": [],
+   "baselines": {
+    "rag": {
+     "answer": "The evidence provided does not contain any information regarding the winner of the 1996 Lumen Cup. Therefore, I cannot confirm who won the 1996 Lumen Cup.",
+     "tokens": {
+      "context_est": 2280,
+      "input": 2508,
+      "output": 35,
+      "total": 2543,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2508,
+        "tokens_out": 35,
+        "latency_ms": 4434.8814487457275,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "graphrag": {
+     "answer": "The evidence provided does not contain any information regarding the winner of the 1996 Lumen Cup. Therefore, I cannot confirm who won the 1996 Lumen Cup.",
+     "tokens": {
+      "context_est": 2409,
+      "input": 2631,
+      "output": 35,
+      "total": 2666,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2631,
+        "tokens_out": 35,
+        "latency_ms": 3651.9618034362793,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h1",
+   "question": "Which country did the winner of the 1992 Aster Games represent?",
+   "answer": "The winner of the 1992 Aster Games, Luis Doreste Domingo Manrique, represented Spain [doc1::0].",
+   "tokens": {
+    "context_est": 554,
+    "input": 2700,
+    "output": 315,
+    "total": 3015,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "analyze",
+      "tokens_in": 223,
+      "tokens_out": 131,
+      "latency_ms": 6685.049057006836,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 1698,
+      "tokens_out": 157,
+      "latency_ms": 5271.048784255981,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "answer",
+      "tokens_in": 779,
+      "tokens_out": 27,
+      "latency_ms": 4153.181552886963,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "agentic_trace": {
+    "question_type": "single_fact",
+    "contract": {
+     "requirements": [
+      {
+       "req_id": "R1",
+       "type": "entity",
+       "slot": "winner",
+       "description": "Identify the winner of the 1992 Aster Games",
+       "required": true
+      },
+      {
+       "req_id": "R2",
+       "type": "attribute",
+       "slot": "country",
+       "description": "Determine the country represented by the winner",
+       "required": true
+      }
+     ]
+    },
+    "steps": [
+     {
+      "step": 0,
+      "tool": "initial_retrieval",
+      "target": "Which country did the winner of the 1992 Aster Games represent?",
+      "gap_type": null,
+      "reason": "always-run cheap retrieval",
+      "candidates": [],
+      "fallback": null,
+      "new_chunks": 8,
+      "new_claims": [
+       "C1",
+       "C2"
+      ],
+      "coverage_before": 0.0,
+      "coverage_after": 1.0,
+      "gain": 1.0,
+      "note": "top dense 0.69; linked ['1992']",
+      "tokens": 1855,
+      "latency_ms": 5271.0,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 1698,
+        "tokens_out": 157,
+        "latency_ms": 5271.048784255981,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "tool_sequence": [
+     "initial_retrieval"
+    ],
+    "n_actions": 0,
+    "strategy_changes": 0,
+    "fallbacks": 0,
+    "stop_reason": "sufficient_evidence",
+    "final_judge": {
+     "sufficient": true,
+     "coverage": 1.0,
+     "missing": [],
+     "contradictions": [],
+     "gap_type": null,
+     "recommended_action": null
+    },
+    "unresolved": [],
+    "verification": {
+     "reverified": 2,
+     "failed": 0,
+     "attempt2": 0
+    },
+    "ledger": [
+     {
+      "claim_id": "C1",
+      "req_id": "R1",
+      "value": "Luis Doreste Domingo Manrique",
+      "claim_text": "The winner of the 1992 Aster Games was Luis Doreste Domingo Manrique.",
+      "status": "SUPPORTED",
+      "evidence_type": "FACT",
+      "sources": [
+       {
+        "doc_id": "Q7400304",
+        "chunk_id": "Q7400304::0",
+        "quote": "Domingo Manrique (Esp) won the Olympic title of the Olympic Games in Barcelona in 1992"
+       }
+      ],
+      "graph_paths": [],
+      "confidence": 1.0,
+      "derived_from": [],
+      "attempts": 1,
+      "meta": {}
+     },
+     {
+      "claim_id": "C2",
+      "req_id": "R2",
+      "value": "Spain",
+      "claim_text": "The country represented by the winner was Spain.",
+      "status": "SUPPORTED",
+      "evidence_type": "FACT",
+      "sources": [
+       {
+        "doc_id": "Q7400304",
+        "chunk_id": "Q7400304::0",
+        "quote": "goldNOC: ESP"
+       }
+      ],
+      "graph_paths": [],
+      "confidence": 1.0,
+      "derived_from": [],
+      "attempts": 1,
+      "meta": {}
+     }
+    ],
+    "confidence": 1.0,
+    "confidence_note": "mean confidence of best verified claim per required slot; NOT a calibrated probability"
+   },
+   "citations": [],
+   "baselines": {
+    "rag": {
+     "answer": "The winner of the 1992 Aster Games, specifically in the Flying Dutchman sailing event at the 1992 Summer Olympics, was Luis Doreste Domingo Manrique, who represented Spain (NOC: ESP) [Q7400304::0].",
+     "tokens": {
+      "context_est": 2287,
+      "input": 2482,
+      "output": 53,
+      "total": 2535,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2482,
+        "tokens_out": 53,
+        "latency_ms": 3982.419729232788,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "graphrag": {
+     "answer": "The winner of the 1992 Aster Games, specifically in the Flying Dutchman sailing event at the 1992 Summer Olympics, represented Spain (NOC: ESP) [Q7400304::0].",
+     "tokens": {
+      "context_est": 2135,
+      "input": 2331,
+      "output": 43,
+      "total": 2374,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2331,
+        "tokens_out": 43,
+        "latency_ms": 4221.903085708618,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h2",
+   "question": "Who won the 1997 Borealis Trophy and where was it held?",
+   "answer": "The evidence does not confirm who won the 1997 Borealis Trophy (R1) or where it was held (R2). Therefore, both claims are not confirmed in the available evidence.",
+   "tokens": {
+    "context_est": 558,
+    "input": 3837,
+    "output": 197,
+    "total": 4034,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "analyze",
+      "tokens_in": 223,
+      "tokens_out": 144,
+      "latency_ms": 5299.929141998291,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 1916,
+      "tokens_out": 7,
+      "latency_ms": 9681.16283416748,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 950,
+      "tokens_out": 7,
+      "latency_ms": 4651.386022567749,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "answer",
+      "tokens_in": 748,
+      "tokens_out": 39,
+      "latency_ms": 4951.850891113281,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "agentic_trace": {
+    "question_type": "multi_hop",
+    "contract": {
+     "requirements": [
+      {
+       "req_id": "R1",
+       "type": "entity",
+       "slot": "borealis_trophy_winner",
+       "description": "the winner of the 1997 Borealis Trophy",
+       "required": true
+      },
+      {
+       "req_id": "R2",
+       "type": "entity",
+       "slot": "borealis_trophy_location",
+       "description": "the location where the 1997 Borealis Trophy was held",
+       "required": true
+      }
+     ]
+    },
+    "steps": [
+     {
+      "step": 0,
+      "tool": "initial_retrieval",
+      "target": "Who won the 1997 Borealis Trophy and where was it held?",
+      "gap_type": null,
+      "reason": "always-run cheap retrieval",
+      "candidates": [],
+      "fallback": null,
+      "new_chunks": 8,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "top dense 0.62; linked ['1997']",
+      "tokens": 1923,
+      "latency_ms": 9681.2,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 1916,
+        "tokens_out": 7,
+        "latency_ms": 9681.16283416748,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "step": 1,
+      "tool": "entity_link",
+      "target": "borealis trophy winner",
+      "gap_type": "ENTITY_GAP",
+      "reason": "ENTITY_GAP on R1; chose entity_link (utility 1.562); judge recommended entity_link",
+      "candidates": [
+       {
+        "tool": "entity_link",
+        "target": "borealis trophy winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.625,
+        "est_tokens": 400,
+        "utility": 1.562,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "vector_search",
+        "target": "Who won the 1997 Borealis Trophy and where was it held? the winner of the 1997 Borealis Trophy",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.3,
+        "est_tokens": 1500,
+        "utility": 0.2,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "graph_traverse",
+        "target": "E_1997",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q1004937",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q748648",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q110324226",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "auto:R1",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       }
+      ],
+      "fallback": null,
+      "new_chunks": 0,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "linked []",
+      "telemetry": null,
+      "tokens": 0,
+      "latency_ms": 0,
+      "ops": []
+     },
+     {
+      "step": 2,
+      "tool": "vector_search",
+      "target": "Who won the 1997 Borealis Trophy and where was it held? the winner of the 1997 B",
+      "gap_type": "ENTITY_GAP",
+      "reason": "ENTITY_GAP on R1; chose vector_search (utility 0.2); judge recommended entity_link",
+      "candidates": [
+       {
+        "tool": "entity_link",
+        "target": "borealis trophy winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.312,
+        "est_tokens": 400,
+        "utility": 0.781,
+        "status": "rejected",
+        "reject_reason": "duplicate_action"
+       },
+       {
+        "tool": "vector_search",
+        "target": "Who won the 1997 Borealis Trophy and where was it held? the winner of the 1997 Borealis Trophy",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.3,
+        "est_tokens": 1500,
+        "utility": 0.2,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "graph_traverse",
+        "target": "E_1997",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q1004937",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q748648",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q110324226",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "auto:R1",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       }
+      ],
+      "fallback": null,
+      "new_chunks": 4,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "top dense 0.68",
+      "telemetry": null,
+      "tokens": 957,
+      "latency_ms": 4651.4,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 950,
+        "tokens_out": 7,
+        "latency_ms": 4651.386022567749,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "tool_sequence": [
+     "initial_retrieval",
+     "entity_link",
+     "vector_search"
+    ],
+    "n_actions": 2,
+    "strategy_changes": 1,
+    "fallbacks": 0,
+    "stop_reason": "no_information_gain",
+    "final_judge": {
+     "sufficient": false,
+     "coverage": 0.0,
+     "missing": [
+      "R1",
+      "R2"
+     ],
+     "contradictions": [],
+     "gap_type": "ENTITY_GAP",
+     "recommended_action": "entity_link"
+    },
+    "unresolved": [
+     "R1 (borealis_trophy_winner)",
+     "R2 (borealis_trophy_location)"
+    ],
+    "verification": {
+     "reverified": 0,
+     "failed": 0,
+     "attempt2": 0
+    },
+    "ledger": [],
+    "confidence": 0.0,
+    "confidence_note": "mean confidence of best verified claim per required slot; NOT a calibrated probability"
+   },
+   "citations": [],
+   "baselines": {
+    "rag": {
+     "answer": "The evidence provided does not confirm who won the 1997 Borealis Trophy or where it was held. The information available pertains to various Olympic events and does not mention the Borealis Trophy specifically. Therefore, I cannot provide an answer to your question based on the evidence given.",
+     "tokens": {
+      "context_est": 2525,
+      "input": 2523,
+      "output": 55,
+      "total": 2578,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2523,
+        "tokens_out": 55,
+        "latency_ms": 6082.740545272827,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "graphrag": {
+     "answer": "The evidence does not provide information about the winner of the 1997 Borealis Trophy or the location where it was held. Therefore, I cannot confirm either part of the question.",
+     "tokens": {
+      "context_est": 2213,
+      "input": 2237,
+      "output": 36,
+      "total": 2273,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2237,
+        "tokens_out": 36,
+        "latency_ms": 5359.061241149902,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h3",
+   "question": "Who won the 1994 Borealis Trophy?",
+   "answer": "The evidence does not confirm who won the 1994 Borealis Trophy. Specifically, R1 (borealis_trophy_winner) is not confirmed in the available evidence.",
+   "tokens": {
+    "context_est": 269,
+    "input": 2726,
+    "output": 350,
+    "total": 3076,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "analyze",
+      "tokens_in": 218,
+      "tokens_out": 86,
+      "latency_ms": 5462.514877319336,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 1131,
+      "tokens_out": 7,
+      "latency_ms": 2983.625650405884,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 978,
+      "tokens_out": 221,
+      "latency_ms": 5940.522909164429,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "answer",
+      "tokens_in": 399,
+      "tokens_out": 36,
+      "latency_ms": 3162.9908084869385,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "agentic_trace": {
+    "question_type": "single_fact",
+    "contract": {
+     "requirements": [
+      {
+       "req_id": "R1",
+       "type": "entity",
+       "slot": "borealis_trophy_winner",
+       "description": "The winner of the 1994 Borealis Trophy must be proven.",
+       "required": true
+      }
+     ]
+    },
+    "steps": [
+     {
+      "step": 0,
+      "tool": "initial_retrieval",
+      "target": "Who won the 1994 Borealis Trophy?",
+      "gap_type": null,
+      "reason": "always-run cheap retrieval",
+      "candidates": [],
+      "fallback": null,
+      "new_chunks": 5,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "top dense 0.67; linked []",
+      "tokens": 1138,
+      "latency_ms": 2983.6,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 1131,
+        "tokens_out": 7,
+        "latency_ms": 2983.625650405884,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "step": 1,
+      "tool": "entity_link",
+      "target": "borealis trophy winner",
+      "gap_type": "ENTITY_GAP",
+      "reason": "ENTITY_GAP on R1; chose entity_link (utility 1.562); judge recommended entity_link",
+      "candidates": [
+       {
+        "tool": "entity_link",
+        "target": "borealis trophy winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.625,
+        "est_tokens": 400,
+        "utility": 1.562,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "vector_search",
+        "target": "Who won the 1994 Borealis Trophy? The winner of the 1994 Borealis Trophy must be proven.",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.3,
+        "est_tokens": 1500,
+        "utility": 0.2,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "graph_traverse",
+        "target": "E_1994",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q9663",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q47735",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q1005212",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "auto:R1",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       }
+      ],
+      "fallback": null,
+      "new_chunks": 0,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "linked []",
+      "telemetry": null,
+      "tokens": 0,
+      "latency_ms": 0,
+      "ops": []
+     },
+     {
+      "step": 2,
+      "tool": "vector_search",
+      "target": "Who won the 1994 Borealis Trophy? The winner of the 1994 Borealis Trophy must be",
+      "gap_type": "ENTITY_GAP",
+      "reason": "ENTITY_GAP on R1; chose vector_search (utility 0.2); judge recommended verify_evidence",
+      "candidates": [
+       {
+        "tool": "entity_link",
+        "target": "borealis trophy winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.312,
+        "est_tokens": 400,
+        "utility": 0.781,
+        "status": "rejected",
+        "reject_reason": "duplicate_action"
+       },
+       {
+        "tool": "vector_search",
+        "target": "Who won the 1994 Borealis Trophy? The winner of the 1994 Borealis Trophy must be proven.",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.3,
+        "est_tokens": 1500,
+        "utility": 0.2,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "graph_traverse",
+        "target": "E_1994",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q9663",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q47735",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q1005212",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "auto:R1",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       }
+      ],
+      "fallback": null,
+      "new_chunks": 4,
+      "new_claims": [
+       "C1",
+       "C2"
+      ],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "top dense 0.68",
+      "telemetry": null,
+      "tokens": 1199,
+      "latency_ms": 5940.5,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 978,
+        "tokens_out": 221,
+        "latency_ms": 5940.522909164429,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "tool_sequence": [
+     "initial_retrieval",
+     "entity_link",
+     "vector_search"
+    ],
+    "n_actions": 2,
+    "strategy_changes": 1,
+    "fallbacks": 0,
+    "stop_reason": "no_information_gain",
+    "final_judge": {
+     "sufficient": false,
+     "coverage": 0.0,
+     "missing": [
+      "R1"
+     ],
+     "contradictions": [],
+     "gap_type": "ENTITY_GAP",
+     "recommended_action": "entity_link"
+    },
+    "unresolved": [
+     "R1 (borealis_trophy_winner)"
+    ],
+    "verification": {
+     "reverified": 0,
+     "failed": 0,
+     "attempt2": 0
+    },
+    "ledger": [
+     {
+      "claim_id": "C1",
+      "req_id": "R1",
+      "value": "Jens Weiﬂflog",
+      "claim_text": "Jens Weiﬂflog won the gold medal in the men's large hill individual ski jumping at the 1994 Winter Olympics.",
+      "status": "CONTRADICTED",
+      "evidence_type": "FACT",
+      "sources": [
+       {
+        "doc_id": "Q523492",
+        "chunk_id": "Q523492::0",
+        "quote": "gold: Jens Weiﬂflog goldNOC: GER silver: Espen Bredesen silverNOC: NOR bronze: Andreas Goldberger bronzeNOC: AUT"
+       }
+      ],
+      "graph_paths": [],
+      "confidence": 1.0,
+      "derived_from": [],
+      "attempts": 1,
+      "meta": {}
+     },
+     {
+      "claim_id": "C2",
+      "req_id": "R1",
+      "value": "Espen Bredesen",
+      "claim_text": "Espen Bredesen won the gold medal in the men's normal hill individual ski jumping at the 1994 Winter Olympics.",
+      "status": "CONTRADICTED",
+      "evidence_type": "FACT",
+      "sources": [
+       {
+        "doc_id": "Q988363",
+        "chunk_id": "Q988363::0",
+        "quote": "gold: Espen Bredesen goldNOC: NOR silver: Lasse Ottesen silverNOC: NOR bronze: Dieter Thoma bronzeNOC: GER"
+       }
+      ],
+      "graph_paths": [],
+      "confidence": 1.0,
+      "derived_from": [],
+      "attempts": 1,
+      "meta": {}
+     }
+    ],
+    "confidence": 0.0,
+    "confidence_note": "mean confidence of best verified claim per required slot; NOT a calibrated probability"
+   },
+   "citations": [],
+   "baselines": {
+    "rag": {
+     "answer": "The evidence provided does not mention the Borealis Trophy or its winner in 1994. Therefore, I cannot confirm who won the 1994 Borealis Trophy.",
+     "tokens": {
+      "context_est": 1661,
+      "input": 2378,
+      "output": 33,
+      "total": 2411,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2378,
+        "tokens_out": 33,
+        "latency_ms": 4445.939540863037,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "graphrag": {
+     "answer": "The evidence provided does not contain any information regarding the winner of the 1994 Borealis Trophy. Therefore, I cannot confirm who won the 1994 Borealis Trophy.",
+     "tokens": {
+      "context_est": 1914,
+      "input": 1980,
+      "output": 35,
+      "total": 2015,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 1980,
+        "tokens_out": 35,
+        "latency_ms": 7190.906524658203,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h4",
+   "question": "Which country did the winner of the 1993 Borealis Trophy represent?",
+   "answer": "The evidence does not confirm the winner of the 1993 Borealis Trophy or the country they represented. Therefore, the following parts are not confirmed: R1 (borealis_trophy_winner) and R2 (country).",
+   "tokens": {
+    "context_est": 643,
+    "input": 3609,
+    "output": 209,
+    "total": 3818,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "analyze",
+      "tokens_in": 223,
+      "tokens_out": 148,
+      "latency_ms": 5909.536600112915,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 1734,
+      "tokens_out": 7,
+      "latency_ms": 2955.796957015991,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 946,
+      "tokens_out": 7,
+      "latency_ms": 2753.502368927002,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "answer",
+      "tokens_in": 706,
+      "tokens_out": 47,
+      "latency_ms": 2900.0096321105957,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "agentic_trace": {
+    "question_type": "single_fact",
+    "contract": {
+     "requirements": [
+      {
+       "req_id": "R1",
+       "type": "entity",
+       "slot": "borealis_trophy_winner",
+       "description": "Identify the winner of the 1993 Borealis Trophy",
+       "required": true
+      },
+      {
+       "req_id": "R2",
+       "type": "attribute",
+       "slot": "country",
+       "description": "Determine the country represented by the winner of the 1993 Borealis Trophy",
+       "required": true
+      }
+     ]
+    },
+    "steps": [
+     {
+      "step": 0,
+      "tool": "initial_retrieval",
+      "target": "Which country did the winner of the 1993 Borealis Trophy represent?",
+      "gap_type": null,
+      "reason": "always-run cheap retrieval",
+      "candidates": [],
+      "fallback": null,
+      "new_chunks": 8,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "top dense 0.58; linked ['1993']",
+      "tokens": 1741,
+      "latency_ms": 2955.8,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 1734,
+        "tokens_out": 7,
+        "latency_ms": 2955.796957015991,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "step": 1,
+      "tool": "entity_link",
+      "target": "borealis trophy winner",
+      "gap_type": "ENTITY_GAP",
+      "reason": "ENTITY_GAP on R1; chose entity_link (utility 1.562); judge recommended entity_link",
+      "candidates": [
+       {
+        "tool": "entity_link",
+        "target": "borealis trophy winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.625,
+        "est_tokens": 400,
+        "utility": 1.562,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "vector_search",
+        "target": "Which country did the winner of the 1993 Borealis Trophy represent? Identify the winner of the 1993 Borealis Trophy",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.3,
+        "est_tokens": 1500,
+        "utility": 0.2,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "graph_traverse",
+        "target": "E_1993,E_country,E_winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q10152",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q5198393",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q3001408",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "auto:R1",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       }
+      ],
+      "fallback": null,
+      "new_chunks": 0,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "linked []",
+      "telemetry": null,
+      "tokens": 0,
+      "latency_ms": 0,
+      "ops": []
+     },
+     {
+      "step": 2,
+      "tool": "vector_search",
+      "target": "Which country did the winner of the 1993 Borealis Trophy represent? Identify the",
+      "gap_type": "ENTITY_GAP",
+      "reason": "ENTITY_GAP on R1; chose vector_search (utility 0.2); judge recommended entity_link",
+      "candidates": [
+       {
+        "tool": "entity_link",
+        "target": "borealis trophy winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.312,
+        "est_tokens": 400,
+        "utility": 0.781,
+        "status": "rejected",
+        "reject_reason": "duplicate_action"
+       },
+       {
+        "tool": "vector_search",
+        "target": "Which country did the winner of the 1993 Borealis Trophy represent? Identify the winner of the 1993 Borealis Trophy",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.3,
+        "est_tokens": 1500,
+        "utility": 0.2,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "graph_traverse",
+        "target": "E_1993,E_country,E_winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q10152",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q5198393",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q3001408",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "auto:R1",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       }
+      ],
+      "fallback": null,
+      "new_chunks": 4,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "top dense 0.73",
+      "telemetry": null,
+      "tokens": 953,
+      "latency_ms": 2753.5,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 946,
+        "tokens_out": 7,
+        "latency_ms": 2753.502368927002,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "tool_sequence": [
+     "initial_retrieval",
+     "entity_link",
+     "vector_search"
+    ],
+    "n_actions": 2,
+    "strategy_changes": 1,
+    "fallbacks": 0,
+    "stop_reason": "no_information_gain",
+    "final_judge": {
+     "sufficient": false,
+     "coverage": 0.0,
+     "missing": [
+      "R1",
+      "R2"
+     ],
+     "contradictions": [],
+     "gap_type": "ENTITY_GAP",
+     "recommended_action": "entity_link"
+    },
+    "unresolved": [
+     "R1 (borealis_trophy_winner)",
+     "R2 (country)"
+    ],
+    "verification": {
+     "reverified": 0,
+     "failed": 0,
+     "attempt2": 0
+    },
+    "ledger": [],
+    "confidence": 0.0,
+    "confidence_note": "mean confidence of best verified claim per required slot; NOT a calibrated probability"
+   },
+   "citations": [],
+   "baselines": {
+    "rag": {
+     "answer": "The evidence provided does not contain any information regarding the winner of the 1993 Borealis Trophy or the country they represented. Therefore, I cannot confirm which country the winner represented.",
+     "tokens": {
+      "context_est": 2369,
+      "input": 2305,
+      "output": 36,
+      "total": 2341,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2305,
+        "tokens_out": 36,
+        "latency_ms": 3206.667900085449,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "graphrag": {
+     "answer": "The evidence provided does not contain any information regarding the winner of the 1993 Borealis Trophy or the country they represented. Therefore, I cannot confirm which country the winner represented.",
+     "tokens": {
+      "context_est": 2454,
+      "input": 2385,
+      "output": 36,
+      "total": 2421,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2385,
+        "tokens_out": 36,
+        "latency_ms": 3094.154119491577,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h5",
+   "question": "Who won the 1995 Aster Games and where was it held?",
+   "answer": "The evidence does not confirm the winner of the 1995 Aster Games (R1) or the location where it was held (R2). Therefore, both claims are not confirmed in the available evidence.",
+   "tokens": {
+    "context_est": 634,
+    "input": 5028,
+    "output": 193,
+    "total": 5221,
+    "estimated_usage": false,
+    "operations": [
+     {
+      "name": "analyze",
+      "tokens_in": 223,
+      "tokens_out": 130,
+      "latency_ms": 5565.645933151245,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 1950,
+      "tokens_out": 7,
+      "latency_ms": 5200.989246368408,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 972,
+      "tokens_out": 7,
+      "latency_ms": 4913.446664810181,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "extract",
+      "tokens_in": 1148,
+      "tokens_out": 7,
+      "latency_ms": 4492.725372314453,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     },
+     {
+      "name": "answer",
+      "tokens_in": 735,
+      "tokens_out": 42,
+      "latency_ms": 5758.846998214722,
+      "estimated": false,
+      "provider": "primary",
+      "cached": false,
+      "attempts": [
+       {
+        "provider": "primary",
+        "model": "openai/gpt-4o-mini",
+        "status": "200"
+       }
+      ]
+     }
+    ]
+   },
+   "agentic_trace": {
+    "question_type": "multi_hop",
+    "contract": {
+     "requirements": [
+      {
+       "req_id": "R1",
+       "type": "entity",
+       "slot": "winner",
+       "description": "the winner of the 1995 Aster Games",
+       "required": true
+      },
+      {
+       "req_id": "R2",
+       "type": "entity",
+       "slot": "location",
+       "description": "the location where the 1995 Aster Games were held",
+       "required": true
+      }
+     ]
+    },
+    "steps": [
+     {
+      "step": 0,
+      "tool": "initial_retrieval",
+      "target": "Who won the 1995 Aster Games and where was it held?",
+      "gap_type": null,
+      "reason": "always-run cheap retrieval",
+      "candidates": [],
+      "fallback": null,
+      "new_chunks": 8,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "top dense 0.63; linked ['1995']",
+      "tokens": 1957,
+      "latency_ms": 5201.0,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 1950,
+        "tokens_out": 7,
+        "latency_ms": 5200.989246368408,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "step": 1,
+      "tool": "entity_link",
+      "target": "winner",
+      "gap_type": "ENTITY_GAP",
+      "reason": "ENTITY_GAP on R1; chose entity_link (utility 1.562); judge recommended entity_link",
+      "candidates": [
+       {
+        "tool": "entity_link",
+        "target": "winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.625,
+        "est_tokens": 400,
+        "utility": 1.562,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "vector_search",
+        "target": "Who won the 1995 Aster Games and where was it held? the winner of the 1995 Aster Games",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.3,
+        "est_tokens": 1500,
+        "utility": 0.2,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "graph_traverse",
+        "target": "E_1995",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q22964455",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q5198390",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q303268",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "auto:R1",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       }
+      ],
+      "fallback": null,
+      "new_chunks": 3,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "linked ['Winner']",
+      "telemetry": null,
+      "tokens": 979,
+      "latency_ms": 4913.4,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 972,
+        "tokens_out": 7,
+        "latency_ms": 4913.446664810181,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "step": 2,
+      "tool": "vector_search",
+      "target": "Who won the 1995 Aster Games and where was it held? the winner of the 1995 Aster",
+      "gap_type": "ENTITY_GAP",
+      "reason": "ENTITY_GAP on R1; chose vector_search (utility 0.2); judge recommended entity_link",
+      "candidates": [
+       {
+        "tool": "entity_link",
+        "target": "winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.312,
+        "est_tokens": 400,
+        "utility": 0.781,
+        "status": "rejected",
+        "reject_reason": "duplicate_action"
+       },
+       {
+        "tool": "vector_search",
+        "target": "Who won the 1995 Aster Games and where was it held? the winner of the 1995 Aster Games",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.3,
+        "est_tokens": 1500,
+        "utility": 0.2,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "graph_traverse",
+        "target": "E_1995,E_winner",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q22964455",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q5198390",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "Q303268",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       },
+       {
+        "tool": "document_retrieve",
+        "target": "auto:R1",
+        "gap_type": "ENTITY_GAP",
+        "req_id": "R1",
+        "expected_gain": 0.2,
+        "est_tokens": 1800,
+        "utility": 0.111,
+        "status": "eligible",
+        "reject_reason": ""
+       }
+      ],
+      "fallback": null,
+      "new_chunks": 4,
+      "new_claims": [],
+      "coverage_before": 0.0,
+      "coverage_after": 0.0,
+      "gain": 0.0,
+      "note": "top dense 0.72",
+      "telemetry": null,
+      "tokens": 1155,
+      "latency_ms": 4492.7,
+      "ops": [
+       {
+        "name": "extract",
+        "tokens_in": 1148,
+        "tokens_out": 7,
+        "latency_ms": 4492.725372314453,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "tool_sequence": [
+     "initial_retrieval",
+     "entity_link",
+     "vector_search"
+    ],
+    "n_actions": 2,
+    "strategy_changes": 1,
+    "fallbacks": 0,
+    "stop_reason": "no_information_gain",
+    "final_judge": {
+     "sufficient": false,
+     "coverage": 0.0,
+     "missing": [
+      "R1",
+      "R2"
+     ],
+     "contradictions": [],
+     "gap_type": "ENTITY_GAP",
+     "recommended_action": "entity_link"
+    },
+    "unresolved": [
+     "R1 (winner)",
+     "R2 (location)"
+    ],
+    "verification": {
+     "reverified": 0,
+     "failed": 0,
+     "attempt2": 0
+    },
+    "ledger": [],
+    "confidence": 0.0,
+    "confidence_note": "mean confidence of best verified claim per required slot; NOT a calibrated probability"
+   },
+   "citations": [],
+   "baselines": {
+    "rag": {
+     "answer": "The evidence does not provide information about the winner of the 1995 Aster Games or the location where it was held. Therefore, I cannot confirm either part of the question.",
+     "tokens": {
+      "context_est": 2468,
+      "input": 2545,
+      "output": 36,
+      "total": 2581,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2545,
+        "tokens_out": 36,
+        "latency_ms": 4526.880502700806,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "graphrag": {
+     "answer": "The evidence does not provide information about the winner of the 1995 Aster Games or the location where it was held. Therefore, I cannot confirm either part of the question.",
+     "tokens": {
+      "context_est": 2519,
+      "input": 2413,
+      "output": 36,
+      "total": 2449,
+      "estimated_usage": false,
+      "operations": [
+       {
+        "name": "answer",
+        "tokens_in": 2413,
+        "tokens_out": 36,
+        "latency_ms": 3933.896780014038,
+        "estimated": false,
+        "provider": "primary",
+        "cached": false,
+        "attempts": [
+         {
+          "provider": "primary",
+          "model": "openai/gpt-4o-mini",
+          "status": "200"
+         }
+        ]
+       }
+      ]
+     }
+    }
+   }
+  }
+ ]
+}

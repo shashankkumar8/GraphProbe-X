@@ -1,0 +1,15 @@
+USE GRAPH GraphProbeX
+CREATE OR REPLACE QUERY entity_context(SET<STRING> ents, INT hops = 2, INT hub_df = 300, INT k = 300) FOR GRAPH GraphProbeX {
+  // Fixed-hop traversal: seeds -> chunks mentioning them (score 2) -> non-hub neighbour entities -> their chunks (score 1).
+  SumAccum<INT> @score;
+  Seed = to_vertex_set(ents, "Entity");
+  C1 = SELECT c FROM Seed:s -(MENTIONS:e)- Chunk:c ACCUM c.@score += 2;
+  R = C1;
+  IF hops >= 2 THEN
+    N1 = SELECT t FROM C1:c -(MENTIONS:e)- Entity:t WHERE t.df <= hub_df AND t.ent_id NOT IN ents;
+    C2 = SELECT c FROM N1:n -(MENTIONS:e)- Chunk:c WHERE c.@score == 0 ACCUM c.@score += 1;
+    R = C1 UNION C2;
+  END;
+  Top = SELECT c FROM R:c ORDER BY c.@score DESC LIMIT k;
+  PRINT Top[Top.chunk_id, Top.@score];
+}

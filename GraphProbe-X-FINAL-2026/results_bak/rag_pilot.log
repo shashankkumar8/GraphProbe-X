@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\LENOVO\Downloads\GraphProbe-X-FINAL-2026\GraphProbe-X-FINAL-2026\benchmark\runner.py", line 60, in <module>
+    a = ap.parse_args(); run_pipeline(a.pipeline, a.split, a.limit, a.workers, a.variant, a.force)
+                         ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\LENOVO\Downloads\GraphProbe-X-FINAL-2026\GraphProbe-X-FINAL-2026\benchmark\runner.py", line 31, in run_pipeline
+    ctx = build_context(cfg); mod = importlib.import_module(f"app.pipelines.{pipeline}")
+  File "C:\Users\LENOVO\Downloads\GraphProbe-X-FINAL-2026\GraphProbe-X-FINAL-2026\app\core\context.py", line 16, in build_context
+    index = Index.load(proc, get_embedder(cfg))
+  File "C:\Users\LENOVO\Downloads\GraphProbe-X-FINAL-2026\GraphProbe-X-FINAL-2026\app\retrieval\index.py", line 29, in load
+    if meta["embedder"] != emb.name: raise RuntimeError(f"index built with {meta['embedder']} but runtime embedder is {emb.name}")
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: index built with BAAI/bge-small-en-v1.5 but runtime embedder is hash512
+[warn] sentence-transformers unavailable ([WinError 1114] A dynamic link library (DLL) initialization routine failed. Error loading "C:\Users\LENOVO\AppData\Local\Programs\Python\Python313\Lib\site-packages\torch\lib\shm.dll" or one of its dependencies.); using HashEmbedder (weaker!)

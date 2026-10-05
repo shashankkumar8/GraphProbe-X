@@ -1,0 +1,7 @@
+.env
+__pycache__/
+data/raw/
+data/processed/
+data/processed_sample/
+results_sample/
+*.partial.jsonl

@@ -1,0 +1,8 @@
+USE GLOBAL
+CREATE VERTEX Document (PRIMARY_ID doc_id STRING, title STRING) WITH primary_id_as_attribute="true"
+CREATE VERTEX Chunk (PRIMARY_ID chunk_id STRING, doc_id STRING, section STRING) WITH primary_id_as_attribute="true"
+CREATE VERTEX Entity (PRIMARY_ID ent_id STRING, name STRING, etype STRING, df INT) WITH primary_id_as_attribute="true"
+CREATE UNDIRECTED EDGE HAS_CHUNK (FROM Document, TO Chunk)
+// Provenance: source chunk is the edge endpoint; extraction_method/confidence stored on the edge.
+CREATE UNDIRECTED EDGE MENTIONS (FROM Chunk, TO Entity, extraction_method STRING, confidence DOUBLE)
+CREATE GRAPH GraphProbeX (Document, Chunk, Entity, HAS_CHUNK, MENTIONS)

@@ -1,0 +1,1266 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GraphProbe-X | Evidence-Driven Adaptive GraphRAG</title>
+    <style>
+      :root {
+        --bg: #F7F7F2;
+        --panel: #FFFDF7;
+        --black: #050505;
+        --yellow: #FFE500;
+        --mint: #49E0BD;
+        --lavender: #A99BFF;
+        --red: #FF5C5C;
+        --muted: #585757;
+        --line: #1b1b1b;
+        --shadow: 6px 6px 0 rgba(5, 5, 5, 1);
+        --radius: 18px;
+        --border: 3px solid var(--black);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--black);
+        font-family: "Segoe UI", Arial, sans-serif;
+        background-image: radial-gradient(circle, rgba(5,5,5,0.12) 1.3px, transparent 1.3px);
+        background-size: 18px 18px;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      button, input, textarea { font: inherit; }
+      h1, h2, h3, .brand-name, .eyebrow, .label, .nav-link, .status-pill, .metric-value, .command-block pre, .tab-button, .action-btn {
+        font-family: "Segoe UI", "Arial Black", sans-serif;
+        letter-spacing: 0.04em;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0));
+      }
+
+      .page-shell {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 0 20px 60px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(255, 229, 0, 0.96);
+        border-bottom: var(--border);
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-inner {
+        max-width: 1320px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 14px 20px;
+      }
+
+      .brand-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-right: auto;
+      }
+
+      .brand-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        background: var(--black);
+        color: var(--yellow);
+        border: 2px solid var(--black);
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .brand-name {
+        font-size: clamp(1.2rem, 2vw, 2rem);
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .version-badge {
+        font-size: 0.7rem;
+        font-weight: 800;
+        border: 2px solid var(--black);
+        background: var(--mint);
+        border-radius: 999px;
+        padding: 4px 8px;
+        line-height: 1;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .nav-link {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        font-weight: 900;
+        letter-spacing: 0.15em;
+        padding: 8px 0;
+        border-bottom: 2px solid transparent;
+        transition: border-color 0.15s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link:focus-visible {
+        border-color: var(--black);
+      }
+
+      .nav-cta {
+        border: var(--border);
+        background: var(--black);
+        box-shadow: 4px 4px 0 var(--black);
+        color: var(--panel);
+        padding: 10px 16px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .panel {
+        background: rgba(255,255,255,0.76);
+        border: var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 18px 18px 20px;
+        margin-top: 22px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.35fr 0.75fr;
+        gap: 24px;
+        background: linear-gradient(135deg, rgba(255,229,0,0.35), rgba(255,255,255,0.85) 35%, rgba(73,224,189,0.15));
+      }
+
+      .eyebrow {
+        display: inline-block;
+        color: var(--black);
+        background: var(--yellow);
+        border: 2px solid var(--black);
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        margin: 18px 0 14px;
+        font-size: clamp(2.7rem, 6vw, 5.2rem);
+        line-height: 0.95;
+        letter-spacing: -0.06em;
+      }
+
+      .hero h1 .main {
+        display: block;
+      }
+
+      .hero h1 .sub {
+        display: block;
+        font-size: clamp(1.05rem, 2.2vw, 1.45rem);
+        font-weight: 900;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-top: 12px;
+      }
+
+      .hero-copy {
+        font-size: 1.06rem;
+        max-width: 620px;
+        line-height: 1.6;
+        margin: 0 0 20px;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .action-btn,
+      .primary-btn,
+      .ghost-btn,
+      .small-btn,
+      .copy-btn,
+      .nav-cta {
+        border: var(--border);
+        border-radius: 14px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        cursor: pointer;
+        transition: transform 0.12s ease, box-shadow 0.12s ease;
+      }
+
+      .action-btn:hover,
+      .primary-btn:hover,
+      .ghost-btn:hover,
+      .small-btn:hover,
+      .copy-btn:hover,
+      .nav-cta:hover {
+        transform: translate(-2px, -2px);
+      }
+
+      .primary-btn {
+        background: var(--yellow);
+        color: var(--black);
+        box-shadow: 4px 4px 0 var(--black);
+        padding: 14px 20px;
+      }
+
+      .ghost-btn, .small-btn {
+        background: var(--panel);
+        color: var(--black);
+        box-shadow: 4px 4px 0 var(--black);
+        padding: 14px 18px;
+      }
+
+      .copy-btn {
+        background: var(--lavender);
+        color: var(--black);
+        box-shadow: 4px 4px 0 var(--black);
+        padding: 8px 10px;
+        font-size: 0.7rem;
+      }
+
+      .system-status {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(110px, 1fr));
+        gap: 12px;
+        align-content: start;
+      }
+
+      .status-pill {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        min-height: 102px;
+        padding: 12px 10px;
+        border: var(--border);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.9);
+        box-shadow: 4px 4px 0 rgba(5,5,5,0.9);
+        text-transform: uppercase;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-align: center;
+      }
+
+      .status-pill .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--mint);
+        border: 2px solid var(--black);
+      }
+
+      .status-pill[data-state="warn"] .dot { background: var(--yellow); }
+      .status-pill[data-state="bad"] .dot { background: var(--red); }
+      .status-pill .label {
+        font-size: 0.62rem;
+      }
+
+      .status-pill .value {
+        font-size: 0.8rem;
+        line-height: 1.3;
+      }
+
+      .two-column {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+        gap: 22px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(1.5rem, 2vw, 2.2rem);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+      }
+
+      .section-kicker {
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .query-box {
+        display: grid;
+        gap: 12px;
+      }
+
+      .field-shell {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        background: var(--panel);
+        border: var(--border);
+        border-radius: 14px;
+        padding: 10px 12px;
+        box-shadow: 4px 4px 0 rgba(5,5,5,0.9);
+      }
+
+      .field-shell input {
+        flex: 1;
+        border: 0;
+        background: transparent;
+        font-size: 1rem;
+        color: var(--black);
+        outline: none;
+      }
+
+      .query-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .status-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .mini-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 10px;
+        border: 2px solid var(--black);
+        border-radius: 999px;
+        font-size: 0.66rem;
+        text-transform: uppercase;
+        background: var(--yellow);
+        font-weight: 900;
+        letter-spacing: 0.1em;
+      }
+
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(170px, 1fr));
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .metric-card {
+        background: var(--panel);
+        border: var(--border);
+        border-radius: 16px;
+        box-shadow: 4px 4px 0 rgba(5,5,5,0.9);
+        padding: 14px;
+      }
+
+      .metric-label {
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .metric-value {
+        font-size: clamp(1.5rem, 2.3vw, 2.3rem);
+        font-weight: 900;
+        margin-top: 10px;
+      }
+
+      .metric-card.mint { background: rgba(73,224,189,0.18); }
+      .metric-card.lavender { background: rgba(169,155,255,0.18); }
+      .metric-card.yellow { background: rgba(255,229,0,0.26); }
+      .metric-card.red { background: rgba(255,92,92,0.12); }
+
+      .tool-panel,
+      .contract-panel,
+      .evidence-panel,
+      .trace-panel,
+      .graph-panel,
+      .bench-panel,
+      .failure-panel,
+      .ablation-panel,
+      .mcp-panel,
+      .ingest-panel,
+      .system-panel {
+        background: rgba(255,255,255,0.82);
+      }
+
+      .stack {
+        display: grid;
+        gap: 14px;
+      }
+
+      .tool-lists,
+      .contract-grid,
+      .evidence-grid,
+      .bench-grid,
+      .failure-grid,
+      .ablation-grid,
+      .mcp-grid,
+      .ingest-grid,
+      .system-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .tool-lists,
+      .mcp-grid,
+      .ingest-grid,
+      .system-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .contract-grid,
+      .failure-grid,
+      .ablation-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .evidence-grid,
+      .bench-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+
+      .info-card {
+        background: var(--panel);
+        border: var(--border);
+        border-radius: 16px;
+        box-shadow: 4px 4px 0 rgba(5,5,5,0.9);
+        padding: 14px;
+      }
+
+      .info-card h3 {
+        margin: 0 0 10px;
+        font-size: 0.9rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .tool-item {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .tool-item strong {
+        font-size: 0.82rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .tool-item p,
+      .contract-item p,
+      .failure-item p,
+      .info-card p,
+      .trace-item p,
+      .answer-box p,
+      .bench-card p,
+      .ingest-card p {
+        margin: 0;
+        line-height: 1.55;
+      }
+
+      .contract-item,
+      .failure-item,
+      .bench-card,
+      .ingest-card {
+        background: var(--panel);
+        border: var(--border);
+        border-radius: 16px;
+        box-shadow: 4px 4px 0 rgba(5,5,5,0.9);
+        padding: 14px;
+      }
+
+      .contract-code {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 900;
+        border: 2px solid var(--black);
+        background: var(--yellow);
+        border-radius: 999px;
+        padding: 5px 8px;
+        margin-bottom: 10px;
+        letter-spacing: 0.1em;
+      }
+
+      .answer-box {
+        background: rgba(255, 229, 0, 0.18);
+        border: var(--border);
+        border-radius: 18px;
+        padding: 14px;
+        box-shadow: 4px 4px 0 rgba(5,5,5,0.9);
+      }
+
+      .answer-box h3 {
+        margin: 0 0 10px;
+        font-size: 0.8rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .trace-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .trace-item {
+        background: var(--panel);
+        border: var(--border);
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: 4px 4px 0 rgba(5,5,5,0.9);
+      }
+
+      .trace-item .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+        font-weight: 800;
+        font-size: 0.7rem;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+
+      .graph-box {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.6fr);
+        gap: 16px;
+      }
+
+      .graph-visual {
+        background: linear-gradient(180deg, rgba(169,155,255,0.12), rgba(73,224,189,0.12));
+        border: var(--border);
+        border-radius: 18px;
+        min-height: 300px;
+        box-shadow: inset 0 0 0 2px rgba(5,5,5,0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .graph-node {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px;
+        font-weight: 900;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        border: 2px solid var(--black);
+        border-radius: 999px;
+        background: var(--yellow);
+        box-shadow: 3px 3px 0 rgba(5,5,5,0.9);
+      }
+
+      .graph-node.secondary { background: var(--mint); }
+      .graph-node.tertiary { background: var(--lavender); }
+      .graph-node.red { background: var(--red); color: white; }
+      .graph-line {
+        position: absolute;
+        height: 2px;
+        background: rgba(5,5,5,0.7);
+        transform-origin: 0 50%;
+      }
+
+      .command-block {
+        width: 100%;
+      }
+
+      .command-block pre {
+        margin: 0;
+        background: var(--black);
+        border-radius: 14px;
+        border: var(--border);
+        color: #E9FFE8;
+        padding: 14px 14px 16px;
+        overflow-x: auto;
+        font-size: 0.82rem;
+        line-height: 1.6;
+      }
+
+      .command-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .tab-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 14px 0 18px;
+      }
+
+      .tab-button {
+        background: var(--panel);
+        border: var(--border);
+        border-radius: 12px;
+        box-shadow: 3px 3px 0 rgba(5,5,5,0.9);
+        padding: 10px 14px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .tab-button.active { background: var(--yellow); }
+
+      .tab-panel {
+        display: none;
+      }
+      .tab-panel.active { display: block; }
+
+      .modal {
+        position: fixed; inset: 0; background: rgba(5,5,5,0.38); display: none; align-items: center; justify-content: center; z-index: 80; padding: 20px;
+      }
+      .modal.open { display: flex; }
+      .modal-card {
+        width: min(780px, 100%);
+        max-height: 80vh;
+        overflow: auto;
+        background: var(--panel);
+        border: var(--border);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        padding: 18px;
+      }
+
+      .toast {
+        position: fixed; bottom: 24px; right: 24px; background: var(--black); color: var(--panel); border: var(--border); border-radius: 999px; box-shadow: 4px 4px 0 rgba(255,255,255,0.7); padding: 10px 16px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0; transform: translateY(16px); transition: 0.2s ease; z-index: 90; pointer-events: none;
+      }
+      .toast.visible { opacity: 1; transform: translateY(0); }
+
+      .nav-link, .tab-button, .action-btn, .primary-btn, .ghost-btn, .small-btn, .copy-btn, .nav-cta { transition: transform .12s ease, box-shadow .12s ease, background .15s ease, border-color .15s ease; }
+      .tab-button:hover { background: var(--yellow); }
+      .info-card, .trace-item, .metric-card, .contract-item, .failure-item, .bench-card, .ingest-card { transition: transform .15s ease, box-shadow .15s ease; }
+      .info-card:hover, .trace-item:hover, .metric-card:hover, .contract-item:hover, .failure-item:hover, .bench-card:hover, .ingest-card:hover { transform: translateY(-2px); box-shadow: 6px 6px 0 rgba(5,5,5,0.9); }
+      .graph-node { transition: transform .15s ease; }
+      .graph-node:hover { transform: scale(1.08); }
+
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; }
+        .two-column, .graph-box { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topnav">
+      <div class="nav-inner">
+        <div class="brand-wrap">
+          <span class="brand-mark">G</span>
+          <span class="brand-name">GRAPHProbe-X</span>
+          <span class="version-badge">v1.0</span>
+        </div>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a class="nav-link" href="#ask">Ask</a>
+          <a class="nav-link" href="#evidence">Evidence</a>
+          <a class="nav-link" href="#trace">Trace</a>
+          <a class="nav-link" href="#graph">Graph</a>
+          <a class="nav-link" href="#benchmark">Benchmark</a>
+          <a class="nav-link" href="#failures">Failures</a>
+          <a class="nav-link" href="#ablation">Ablation</a>
+          <a class="nav-link" href="#mcp">MCP</a>
+          <a class="nav-link" href="#ingest">Ingest</a>
+          <a class="nav-link" href="#system">System</a>
+        </nav>
+        <button class="nav-cta" type="button" data-scroll="ask">Run Query</button>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="panel hero" id="overview">
+        <div>
+          <div class="eyebrow">Evidence-Driven Adaptive GraphRAG</div>
+          <h1>
+            <span class="main">GRAPHProbe-X</span>
+            <span class="sub">Retrieve. Connect. Verify. Stop when proven.</span>
+          </h1>
+          <p class="hero-copy">
+            A controlled benchmark for adaptive agentic retrieval: same corpus, same chunks, same evaluation protocol, and a hard governor that measures whether extra retrieval, latency, and tokens are actually worth it.
+          </p>
+          <div class="cta-row">
+            <a class="primary-btn" href="#ask">Ask a Question</a>
+            <a class="ghost-btn" href="#benchmark">Run Benchmark</a>
+            <a class="ghost-btn" href="#graph">Explore Graph</a>
+          </div>
+        </div>
+
+        <div class="system-status" id="system-status-grid" aria-live="polite">
+          <div class="status-pill" data-state="ok"><div class="dot"></div><div class="label">RAG</div><div class="value">online</div></div>
+          <div class="status-pill" data-state="ok"><div class="dot"></div><div class="label">GraphRAG</div><div class="value">ready</div></div>
+          <div class="status-pill" data-state="ok"><div class="dot"></div><div class="label">Agentic</div><div class="value">armed</div></div>
+          <div class="status-pill" data-state="ok"><div class="dot"></div><div class="label">TigerGraph</div><div class="value">up</div></div>
+          <div class="status-pill" data-state="warn"><div class="dot"></div><div class="label">LLM</div><div class="value">check</div></div>
+          <div class="status-pill" data-state="ok"><div class="dot"></div><div class="label">Corpus</div><div class="value">indexed</div></div>
+        </div>
+      </section>
+
+      <section class="panel" id="ask">
+        <div class="section-head">
+          <h2>Query Lab</h2>
+          <span class="section-kicker">Live ask + side-by-side evidence</span>
+        </div>
+
+        <div class="two-column">
+          <div class="query-box">
+            <div class="field-shell">
+              <input id="question-input" type="text" maxlength="500" placeholder="Ask a question about the corpus…" aria-label="Question" />
+            </div>
+            <div class="query-actions">
+              <button class="primary-btn" id="run-query" type="button">Investigate</button>
+              <button class="ghost-btn" id="demo-query" type="button">Try Example</button>
+            </div>
+            <div class="status-row" id="query-status-row">
+              <span class="mini-chip" id="query-status">Ready</span>
+            </div>
+          </div>
+
+          <div class="answer-box" id="answer-box">
+            <h3>Answer</h3>
+            <p>Run a question to compare the RAG, GraphRAG, and Agentic pipelines with evidence-backed output and governor decisions.</p>
+          </div>
+        </div>
+
+        <div class="results-grid" id="result-cards"></div>
+      </section>
+
+      <section class="panel" id="evidence">
+        <div class="section-head">
+          <h2>Evidence</h2>
+          <span class="section-kicker">Contract · ledger · judge</span>
+        </div>
+
+        <div class="evidence-grid">
+          <div class="info-card">
+            <h3>Evidence Contract</h3>
+            <p>Each question defines required fact slots up front. The contract makes the benchmark fair because every pipeline has to prove the same set of claims before the answer is sufficient.</p>
+          </div>
+          <div class="info-card">
+            <h3>Evidence Ledger</h3>
+            <p>Claims are backed by verbatim quotes or raw field equality. Every status is explicit: SUPPORTED, PARTIAL, UNSUPPORTED, CONTRADICTED, or UNRESOLVED.</p>
+          </div>
+          <div class="info-card">
+            <h3>Evidence Judge</h3>
+            <p>Coverage is deterministic: required slots are scored, contradictions block sufficiency, and unsupported claims are not silently papered over.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel trace-panel" id="trace">
+        <div class="section-head">
+          <h2>Trace</h2>
+          <span class="section-kicker">Decision path + stop reason</span>
+        </div>
+
+        <div class="tab-controls" aria-label="Trace tabs">
+          <button class="tab-button active" type="button" data-tab="tab-investigation">Investigation</button>
+          <button class="tab-button" type="button" data-tab="tab-ledger">Ledger</button>
+          <button class="tab-button" type="button" data-tab="tab-actions">Actions</button>
+        </div>
+
+        <div id="tab-investigation" class="tab-panel active">
+          <div class="trace-list" id="trace-investigation"></div>
+        </div>
+        <div id="tab-ledger" class="tab-panel">
+          <div class="trace-list" id="trace-ledger"></div>
+        </div>
+        <div id="tab-actions" class="tab-panel">
+          <div class="trace-list" id="trace-actions"></div>
+        </div>
+      </section>
+
+      <section class="panel graph-panel" id="graph">
+        <div class="section-head">
+          <h2>Graph Explorer</h2>
+          <span class="section-kicker">Entity linking + provenance</span>
+        </div>
+
+        <div class="graph-box">
+          <div class="graph-visual" aria-label="Graph Explorer">
+            <div class="graph-line" style="left: 90px; top: 110px; width: 180px; transform: rotate(24deg);"></div>
+            <div class="graph-line" style="left: 280px; top: 160px; width: 180px; transform: rotate(-18deg);"></div>
+            <div class="graph-line" style="left: 170px; top: 210px; width: 180px; transform: rotate(16deg);"></div>
+            <div class="graph-node" style="left: 20px; top: 78px;">Document</div>
+            <div class="graph-node secondary" style="left: 240px; top: 36px;">Entity</div>
+            <div class="graph-node tertiary" style="left: 420px; top: 110px;">Chunk</div>
+            <div class="graph-node red" style="left: 240px; top: 210px;">Relation</div>
+            <div class="graph-node secondary" style="left: 430px; top: 220px;">Claim</div>
+          </div>
+
+          <div class="stack">
+            <div class="info-card">
+              <h3>Fixed-hop traversal</h3>
+              <p>Every graph step carries provenance from doc → chunk → entity → relation → claim. The benchmark compares the same graph substrate against the adaptive planner.</p>
+            </div>
+            <div class="info-card">
+              <h3>Plan signals</h3>
+              <p>ENTITY, RELATION, and COVERAGE gaps trigger utility-ranked candidates and deterministic stop checks before additional investigation is allowed.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel bench-panel" id="benchmark">
+        <div class="section-head">
+          <h2>Benchmark Dashboard</h2>
+          <span class="section-kicker">Three pipelines/one corpus</span>
+        </div>
+        <div class="bench-grid" id="benchmark-grid"></div>
+      </section>
+
+      <section class="panel failure-panel" id="failures">
+        <div class="section-head">
+          <h2>Failure Taxonomy</h2>
+          <span class="section-kicker">Brittle retrieval and escalation log</span>
+        </div>
+        <div class="failure-grid">
+          <div class="failure-item">
+            <div class="contract-code">ENTITY</div>
+            <p>Missing entity grounding despite a near-match retrieval result. Usually caused by fuzzy search without explicit link verification.</p>
+          </div>
+          <div class="failure-item">
+            <div class="contract-code">RELATION</div>
+            <p>Evidence contains a matching entity but misses the relationship path needed to answer the causal or comparative question.</p>
+          </div>
+          <div class="failure-item">
+            <div class="contract-code">COVERAGE</div>
+            <p>Answer is partially supported but fails to cover all required slots, which triggers extra planning instead of premature completion.</p>
+          </div>
+          <div class="failure-item">
+            <div class="contract-code">GOVERNOR</div>
+            <p>Escalation beyond budget or below gain threshold is rejected before the LLM can override the hard stop conditions.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel ablation-panel" id="ablation">
+        <div class="section-head">
+          <h2>Ablation</h2>
+          <span class="section-kicker">Controls and component variance</span>
+        </div>
+        <div class="ablation-grid">
+          <div class="info-card"><h3>closed-book</h3><p>Baseline without corpus access. Useful for measuring knowledge prior and hallucination risk.</p></div>
+          <div class="info-card"><h3>rag-matched</h3><p>Matches the standard retrieval substrate with exactly the same chunks and embeddings as the adaptive system.</p></div>
+          <div class="info-card"><h3>graph-fixed</h3><p>Tests fixed-hop graph traversal without flexible action planning or governor adaptation.</p></div>
+          <div class="info-card"><h3>agentic</h3><p>Adaptive planner + evidence ledger + verification loop + hard governor on the same retrieval base.</p></div>
+        </div>
+      </section>
+
+      <section class="panel mcp-panel" id="mcp">
+        <div class="section-head">
+          <h2>MCP Integration</h2>
+          <span class="section-kicker">Seven tools / one stdio server</span>
+        </div>
+        <div class="mcp-grid">
+          <div class="info-card">
+            <h3>Claude Code</h3>
+            <div class="command-block">
+              <div class="command-actions"><span class="label">Command</span><button class="copy-btn" type="button" data-copy="claude-mcp">Copy</button></div>
+              <pre id="claude-mcp">claude mcp add graphprobe-x -- python -m mcp_server.server</pre>
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>Cursor / Cline / Windsurf</h3>
+            <div class="command-block">
+              <div class="command-actions"><span class="label">JSON config</span><button class="copy-btn" type="button" data-copy="cursor-json">Copy</button></div>
+              <pre id="cursor-json">{"mcpServers":{"graphprobe-x":{"command":"python","args":["-m","mcp_server.server"]}}}</pre>
+            </div>
+          </div>
+          <div class="info-card">
+            <h3>Codex CLI</h3>
+            <div class="command-block">
+              <div class="command-actions"><span class="label">Config block</span><button class="copy-btn" type="button" data-copy="codex-config">Copy</button></div>
+              <pre id="codex-config">[mcp_servers.graphprobe-x]
+command = "python"
+args = ["-m", "mcp_server.server"]</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel ingest-panel" id="ingest">
+        <div class="section-head">
+          <h2>Ingest</h2>
+          <span class="section-kicker">Corpus / chunk / entity graph</span>
+        </div>
+        <div class="ingest-grid">
+          <div class="info-card"><h3>Sources</h3><p>Public corpus documents are ingested into the same indexing substrate used for all pipelines, preserving provenance from the raw source into the chunk and graph layer.</p></div>
+          <div class="info-card"><h3>Chunks</h3><p>Indexed by BM25 and semantic dense retrieval and then linked to entities, relations, and evidence claims in the TigerGraph layer.</p></div>
+          <div class="info-card"><h3>Auditability</h3><p>Every final result can be reconstructed from the saved run, ledger, and benchmark manifest. The hidden-gold guard prevents tuning on the evaluation set.</p></div>
+        </div>
+      </section>
+
+      <section class="panel system-panel" id="system">
+        <div class="section-head">
+          <h2>System</h2>
+          <span class="section-kicker">Live backend status</span>
+        </div>
+        <div class="system-grid" id="system-metadata"></div>
+      </section>
+    </main>
+
+    <div class="modal" id="modal" aria-hidden="true">
+      <div class="modal-card" id="modal-card"></div>
+    </div>
+    <div class="toast" id="toast" aria-live="polite"></div>
+
+    <script>
+      const $ = (selector) => document.querySelector(selector);
+      const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+      const safeText = (value) => typeof value === 'string' ? value : JSON.stringify(value ?? '');
+
+      const clearEl = (el) => { while (el.firstChild) el.removeChild(el.firstChild); };
+
+      const makeEl = (tag, className, text) => {
+        const el = document.createElement(tag);
+        if (className) el.className = className;
+        if (text !== undefined && text !== null) el.textContent = text;
+        return el;
+      };
+
+      const showToast = (message) => {
+        const toast = $('#toast');
+        toast.textContent = message;
+        toast.classList.add('visible');
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove('visible'), 1400);
+      };
+
+      const renderStatusFromBackend = async () => {
+        try {
+          const response = await fetch('/api/status');
+          if (!response.ok) throw new Error('status unavailable');
+          const data = await response.json();
+          const cards = [...document.querySelectorAll('.status-pill')];
+          cards[0].dataset.state = 'ok';
+          cards[0].querySelector('.value').textContent = data.graph_backend || 'online';
+          cards[1].querySelector('.value').textContent = `${data.entities || 0} entities`;
+          cards[2].querySelector('.value').textContent = data.llm_model || 'arm';
+          cards[3].querySelector('.value').textContent = data.graph_backend || 'up';
+          cards[4].querySelector('.value').textContent = data.mock_llm ? 'mock' : 'live';
+          cards[5].querySelector('.value').textContent = `${data.chunks || 0} chunks`;
+
+          const systemMeta = ($('#system-metadata'));
+          clearEl(systemMeta);
+          const entries = [
+            ['Graph backend', data.graph_backend || 'unknown'],
+            ['Chunks', data.chunks || '0'],
+            ['Entities', data.entities || '0'],
+            ['Embedding model', data.embedder || 'unknown'],
+            ['LLM model', data.llm_model || 'unknown'],
+            ['Fallback', data.llm_fallback ? 'enabled' : 'disabled'],
+            ['Structured records', data.structured_records || '0'],
+            ['Results present', data.results_present ? 'yes' : 'no']
+          ];
+
+          entries.forEach(([label, value]) => {
+            const card = makeEl('div', 'info-card');
+            card.appendChild(makeEl('h3', null, label));
+            card.appendChild(makeEl('p', null, safeText(value)));
+            systemMeta.appendChild(card);
+          });
+        } catch (error) {
+          const cards = [...document.querySelectorAll('.status-pill')];
+          cards.forEach((card) => {
+            card.dataset.state = 'warn';
+            const value = card.querySelector('.value');
+            if (value.textContent.trim() === 'online' || value.textContent.trim() === 'ready') value.textContent = 'offline';
+          });
+          const systemMeta = $('#system-metadata');
+          clearEl(systemMeta);
+          const card = makeEl('div', 'info-card');
+          card.appendChild(makeEl('h3', null, 'Local API'));
+          const p = makeEl('p');
+          p.appendChild(document.createTextNode('Run '));
+          p.appendChild(makeEl('code', null, 'python -m scripts.serve'));
+          p.appendChild(document.createTextNode(' to activate the live status, ask endpoint, and benchmark summary.'));
+          card.appendChild(p);
+          systemMeta.appendChild(card);
+        }
+      };
+
+      const formatMetric = (value, suffix = '') => {
+        if (value === undefined || value === null || value === '') return '—';
+        const numeric = Number(value);
+        if (Number.isFinite(numeric)) {
+          if (suffix === 'ms') return `${Math.round(numeric)} ms`;
+          if (suffix === '%') return `${numeric.toFixed(1)}%`;
+          return `${numeric}`;
+        }
+        return safeText(value);
+      };
+
+      const renderBenchmarkCards = async () => {
+        const grid = $('#benchmark-grid');
+        clearEl(grid);
+
+        let payload = {};
+        try {
+          const response = await fetch('/api/summary');
+          if (response.ok) payload = await response.json();
+        } catch (error) {
+          // ignore; static placeholder remains
+        }
+
+        const summary = payload && payload.pipelines ? payload.pipelines : {};
+        const pipelines = Object.keys(summary).length ? Object.keys(summary) : ['RAG', 'GraphRAG', 'Agentic'];
+
+        pipelines.forEach((pipelineName) => {
+          const label = pipelineName.toLowerCase() === 'agentic' ? 'Agentic' : pipelineName.toLowerCase() === 'graphrag' ? 'GraphRAG' : 'RAG';
+          const record = summary[pipelineName.toLowerCase()] || {
+            accuracy: '—',
+            completeness: '—',
+            avg_tokens: '—',
+            avg_latency_ms: '—',
+            avg_citations: '—',
+            llm_calls: '—',
+            fallback_call_rate: '—'
+          };
+
+          const card = document.createElement('div');
+          card.className = 'info-card bench-card';
+          card.appendChild(makeEl('div', 'contract-code', label));
+          card.appendChild(makeEl('p', null, `Accuracy: ${formatMetric(record.accuracy, '%')}`));
+          card.appendChild(makeEl('p', null, `Completeness: ${formatMetric(record.completeness, '%')}`));
+          card.appendChild(makeEl('p', null, `Avg tokens: ${formatMetric(record.avg_tokens)}`));
+          card.appendChild(makeEl('p', null, `Latency: ${formatMetric(record.avg_latency_ms, 'ms')}`));
+          card.appendChild(makeEl('p', null, `Citations: ${formatMetric(record.avg_citations)}`));
+          card.appendChild(makeEl('p', null, `LLM calls: ${formatMetric(record.llm_calls)}`));
+          card.appendChild(makeEl('p', null, `Fallback rate: ${formatMetric(record.fallback_call_rate, '%')}`));
+          grid.appendChild(card);
+        });
+      };
+
+      const renderQueryResults = (result) => {
+        const answerBox = $('#answer-box');
+        const resultCards = $('#result-cards');
+        clearEl(resultCards);
+        clearEl(answerBox);
+        answerBox.appendChild(makeEl('h3', null, 'Answer'));
+
+        if (!result || !result.results) {
+          answerBox.appendChild(makeEl('p', null, 'Run a query to see the answer comparison.'));
+          return;
+        }
+
+        const ordered = ['rag', 'graphrag', 'agentic'];
+        ordered.forEach((key) => {
+          const item = result.results[key];
+          const card = document.createElement('div');
+          card.className = 'metric-card ' + (key === 'rag' ? 'yellow' : key === 'graphrag' ? 'lavender' : 'mint');
+          card.appendChild(makeEl('div', 'metric-label', key === 'rag' ? 'RAG' : key === 'graphrag' ? 'GraphRAG' : 'Agentic'));
+          card.appendChild(makeEl('div', 'metric-value', item && !item.error ? String(item.citations?.length ?? 0) : '—'));
+          card.appendChild(makeEl('p', null, item && item.error ? item.error : (item && item.answer ? item.answer.slice(0, 110) : 'No result')));
+          resultCards.appendChild(card);
+        });
+
+        const agentic = result.results.agentic;
+        if (agentic && !agentic.error) {
+          answerBox.appendChild(makeEl('p', null, agentic.answer));
+          const meta = document.createElement('div');
+          meta.className = 'status-row';
+          meta.appendChild(makeEl('span', 'mini-chip', `Tokens ${agentic.tokens ?? '—'}`));
+          meta.appendChild(makeEl('span', 'mini-chip', `Latency ${Math.round(agentic.latency_ms || 0)} ms`));
+          meta.appendChild(makeEl('span', 'mini-chip', `Citations ${agentic.citations?.length ?? 0}`));
+          if (agentic.stop_reason) meta.appendChild(makeEl('span', 'mini-chip', `Stop ${agentic.stop_reason}`));
+          answerBox.appendChild(meta);
+        } else {
+          answerBox.appendChild(makeEl('p', null, 'Unable to produce a live answer. Ensure the backend is running and the corpus is indexed.'));
+        }
+      };
+
+      const renderTracePanels = (data) => {
+        const traceList = $('#trace-investigation');
+        const ledgerList = $('#trace-ledger');
+        const actionList = $('#trace-actions');
+
+        clearEl(traceList);
+        clearEl(ledgerList);
+        clearEl(actionList);
+
+        if (!data || !data.trace) {
+          const emptyTrace = makeEl('div', 'trace-item');
+          emptyTrace.appendChild(makeEl('p', null, 'No live trace available yet.'));
+          traceList.appendChild(emptyTrace);
+          const emptyLedger = makeEl('div', 'trace-item');
+          emptyLedger.appendChild(makeEl('p', null, 'No ledger available yet.'));
+          ledgerList.appendChild(emptyLedger);
+          const emptyActions = makeEl('div', 'trace-item');
+          emptyActions.appendChild(makeEl('p', null, 'No actions logged yet.'));
+          actionList.appendChild(emptyActions);
+          return;
+        }
+
+        const trace = data.trace;
+
+        (trace.steps || []).forEach((step, index) => {
+          const item = makeEl('div', 'trace-item');
+          item.appendChild(makeEl('strong', null, `Step ${index + 1}: ${step.tool || 'tool'}`));
+          item.appendChild(makeEl('p', null, step.reason || 'Investigation step'));
+          const meta = makeEl('div', 'meta');
+          meta.appendChild(makeEl('span', null, `Coverage ${step.coverage_before ?? 0} → ${step.coverage_after ?? 0}`));
+          meta.appendChild(makeEl('span', null, `Gain ${step.gain ?? 0}`));
+          meta.appendChild(makeEl('span', null, `Tokens ${step.tokens ?? 0}`));
+          meta.appendChild(makeEl('span', null, `Latency ${Math.round(step.latency_ms || 0)} ms`));
+          item.appendChild(meta);
+          traceList.appendChild(item);
+        });
+
+        (trace.ledger || []).slice(0, 8).forEach((entry) => {
+          const item = makeEl('div', 'trace-item');
+          item.appendChild(makeEl('strong', null, entry.claim_id || 'claim'));
+          item.appendChild(makeEl('p', null, entry.value || 'Value unavailable'));
+          const meta = makeEl('div', 'meta');
+          meta.appendChild(makeEl('span', null, entry.req_id || 'REQ'));
+          meta.appendChild(makeEl('span', null, entry.status || 'unknown'));
+          meta.appendChild(makeEl('span', null, entry.evidence_type || 'evidence'));
+          item.appendChild(meta);
+          ledgerList.appendChild(item);
+        });
+
+        (trace.steps || []).forEach((step, index) => {
+          const item = makeEl('div', 'trace-item');
+          item.appendChild(makeEl('strong', null, step.tool || 'Tool'));
+          item.appendChild(makeEl('p', null, step.reason || 'Action proposed and validated by the planner.'));
+          const meta = makeEl('div', 'meta');
+          meta.appendChild(makeEl('span', null, `URL: ${step.target || 'N/A'}`));
+          meta.appendChild(makeEl('span', null, `Candidate ${index + 1}`));
+          item.appendChild(meta);
+          actionList.appendChild(item);
+        });
+      };
+
+      const runQuery = async () => {
+        const input = $('#question-input');
+        const question = input.value.trim();
+        if (!question) {
+          $('#query-status').textContent = 'Need a question';
+          return;
+        }
+
+        $('#query-status').textContent = 'Investigating…';
+
+        try {
+          const response = await fetch('/api/ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question })
+          });
+
+          if (!response.ok) throw new Error('request failed');
+          const result = await response.json();
+          renderQueryResults(result);
+          renderTracePanels(result.results && result.results.agentic ? { trace: result.results.agentic.trace } : null);
+          $('#query-status').textContent = 'Complete';
+        } catch (error) {
+          $('#query-status').textContent = 'Backend offline';
+          const answerBox = $('#answer-box');
+          clearEl(answerBox);
+          answerBox.appendChild(makeEl('h3', null, 'Answer'));
+          const p = makeEl('p');
+          p.appendChild(document.createTextNode('Live query is unavailable. Launch the backend with '));
+          p.appendChild(makeEl('code', null, 'python -m scripts.serve'));
+          p.appendChild(document.createTextNode(' and retry.'));
+          answerBox.appendChild(p);
+        }
+      };
+
+      document.addEventListener('click', async (event) => {
+        const target = event.target.closest('[data-scroll]');
+        if (target) {
+          const section = document.getElementById(target.dataset.scroll);
+          if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        const tabButton = event.target.closest('[data-tab]');
+        if (tabButton) {
+          $$('[data-tab]').forEach((button) => button.classList.toggle('active', button === tabButton));
+          $$('.tab-panel').forEach((panel) => panel.classList.toggle('active', panel.id === tabButton.dataset.tab));
+        }
+
+        const copyButton = event.target.closest('[data-copy]');
+        if (copyButton) {
+          const id = copyButton.dataset.copy;
+          const text = document.getElementById(id)?.textContent?.trim() || '';
+          try {
+            await navigator.clipboard.writeText(text);
+            showToast('Copied');
+          } catch (error) {
+            showToast('Copy failed');
+          }
+        }
+      });
+
+      $('#run-query').addEventListener('click', runQuery);
+      $('#demo-query').addEventListener('click', () => {
+        $('#question-input').value = 'What is the relation between the corpus entities and the evidence contract?';
+        runQuery();
+      });
+
+      $('#question-input').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') runQuery();
+      });
+
+      document.querySelectorAll('.copy-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+          const target = button.closest('.command-block')?.querySelector('pre');
+          if (target) navigator.clipboard.writeText(target.textContent).then(() => showToast('Copied')).catch(() => showToast('Copy failed'));
+        });
+      });
+
+      renderStatusFromBackend();
+      renderBenchmarkCards();
+      renderTracePanels(null);
+    </script>
+  </body>
+</html>

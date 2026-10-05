@@ -1,0 +1,51 @@
+paths: {processed: data/processed, results: results}
+data:
+  corpus: data/raw/corpus/corpus.jsonl
+  public: data/raw/questions/eval_public.jsonl
+  hidden: data/raw/questions/eval_hidden.jsonl
+  # Map YOUR jsonl keys here after `make inspect` (first match wins)
+  fields:
+    doc_id: [id, doc_id, _id, docid]
+    title: [title, name]
+    text: [text, contents, content, body]
+    q_id: [id, qid, question_id, _id]
+    question: [question, query]
+    answer: [answer, gold, gold_answer, answers, ground_truth]
+chunk: {max_words: 220, overlap_words: 40}
+retrieval:
+  k: 8                 # RAG final context chunks (GraphRAG uses vector_k + graph_k = same total)
+  candidates: 40
+  rrf_k: 60
+  dense_model: BAAI/bge-small-en-v1.5
+graph:
+  backend: memory      # memory | tigergraph  (final runs MUST use tigergraph)
+  hops: 2
+  hub_df: 300          # entities in > hub_df chunks are never expanded THROUGH
+  cand_limit: 300
+graphrag: {vector_k: 4, graph_k: 4}          # FIXED, no adaptivity, no fallback
+llm: {model: openai/gpt-4o-mini, temperature: 0, max_output_tokens: 500, answer_max_tokens: 300, json_mode: true, max_tokens_param: max_tokens,
+      retries: 3, timeout_s: 90, cache_dir: cache/llm, prompt_version: v1}   # bump prompt_version whenever prompts change
+rag_matched: {k: null}   # auto-computed by the runner from RAG/agentic average tokens
+agentic:
+  initial_k: 5
+  max_steps: 6
+  max_llm_calls: 10      # analyze+extract+verify+plan calls (excl. final answer)
+  max_tokens: 10000      # analyzer+extract+verify calls (excl. final synthesis). 4000 is too tight: analyze+extract alone ~2.5k
+  min_gain: 0.05
+  patience: 2            # consecutive actions with gain < min_gain before stopping
+  coverage_threshold: 0.99
+  extract_chunks: 6
+  extract_words: 200
+  answer_chunks: 4
+  min_dense_score: 0.35  # weak-vector-match threshold -> entity_link fallback (tune per embedder)
+  planner: utility       # utility | llm (LLM picks among validated candidates; code re-validates)
+  judge_mode: contract   # contract | heuristic (ablation)
+  use_memory: true       # dedup on (tool,target,gap_type)
+  disabled_tools: []     # e.g. [graph_traverse] for ablation
+  gain_decay: 0.5        # expected gain multiplier per prior zero-gain use of the same tool
+eval: {gold_list_semantics: any}   # any: list = acceptable alternatives | all: list = all parts required
+structured:            # deterministic aggregation over STRUCTURED corpus fields (raw JSONL keys; header 'Key: value' lines as fallback). Adjust after `detect_fields`.
+  count_fields: [competitors, competitor_count, num_competitors, participants, athletes]
+  facet_fields: [games, sport, discipline, event, venue, city, year, date, nations]
+  answer_fields: [event, title]
+  max_support: 25

@@ -1,0 +1,12 @@
+numpy
+pyyaml
+requests
+rank-bm25
+rapidfuzz
+tqdm
+matplotlib
+pandas
+streamlit
+pyTigerGraph
+sentence-transformers
+pytest

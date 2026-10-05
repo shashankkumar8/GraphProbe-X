@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\Users\LENOVO\Downloads\GraphProbe-X-FINAL-2026\GraphProbe-X-FINAL-2026\scripts\tg_setup.py", line 5, in <module>
+    from app.core.config import load_config, P
+ModuleNotFoundError: No module named 'app'
