@@ -12,16 +12,15 @@ The key question isn't "How do we add agents?" but **"When does additional inves
 
 ### Q: Why not always use agents?
 
-**A**: Cost.
+**A**: Because additional investigation has a cost in tokens, latency, and tool calls.
 
-- RAG: ~700 tokens, 600ms latency
-- Agentic: ~2000 tokens, 1500ms latency
+For simple questions, direct retrieval can already satisfy the evidence contract, so escalating would add cost without a corresponding evidence gain.
 
-For simple questions ("Who hosted 2016 Olympics?"), RAG is sufficient. Agents add unnecessary cost and latency.
+For complex questions, GraphProbe-X can spend additional investigation budget when the ledger shows unresolved requirements.
 
-For complex questions ("Who won men's 20km walk immediately before 2016?"), agents investigate missing evidence that RAG misses.
+The principle is:
 
-**Use the cheapest sufficient strategy.**
+> **Use the cheapest sufficient strategy. Escalate only when evidence is missing.**
 
 ---
 
@@ -195,14 +194,11 @@ The adaptive path emerges from state, not from hard-coded question logic.
 
 ### Q: What accuracy did you achieve?
 
-**A**: Current repository contains **smoke-test results** (hash512 synthetic embeddings), not real benchmark results.
+**A**: The repository distinguishes architecture/smoke-test validation from publishable benchmark results.
 
-To achieve real results:
-1. Build real embedding index: `python -m scripts.build_index` (2-3 hours)
-2. Run benchmarks: `python -m benchmark.runner --pipeline rag --split public --limit 100`
-3. Evaluate: `python -m benchmark.evaluator`
+Current smoke-test results use the hash512 synthetic embedding substrate and are **not presented as real semantic-retrieval accuracy**. Real RAG/GraphRAG benchmark accuracy requires rebuilding the real embedding index and rerunning the public benchmark under the same evaluation setup.
 
-Expected: RAG ~0.90-0.95, GraphRAG ~0.92-0.96, Agentic ~0.94-0.97 on Olympic domain.
+We do not quote expected or illustrative accuracy numbers as achieved results.
 
 ---
 
@@ -238,13 +234,9 @@ The value is in the measurement, not in a predetermined outcome.
 
 ### Q: What LLM do you use?
 
-**A**: gpt-4o-mini via OpenRouter. Fallback to gpt-3.5-turbo if rate-limited.
+**A**: The configured answer model is **gpt-4o-mini** through an OpenAI-compatible gateway. LLM calls are metered and traced.
 
-All LLM calls go through `app/core/llm.py` with:
-- Disk caching
-- Token accounting
-- Retry + fallback
-- Usage telemetry
+The repository keeps benchmark claims tied to saved results rather than using estimated performance figures.
 
 ---
 
