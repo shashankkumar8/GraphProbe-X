@@ -26,7 +26,7 @@ class Index:
     @classmethod
     def load(cls, d, emb):
         d = pathlib.Path(d); meta = json.load(open(d / "index_meta.json"))
-        # if meta["embedder"] != emb.name: raise RuntimeError(f"index built with {meta['embedder']} but runtime embedder is {emb.name}")
+        if meta["embedder"] != emb.name: raise RuntimeError(f"index built with {meta['embedder']} but runtime embedder is {emb.name}")
         chunks = [json.loads(l) for l in open(d / "chunks.jsonl", encoding="utf-8")]
         return cls(chunks, emb, np.load(d / "dense.npy"), pickle.load(open(d / "bm25.pkl", "rb")), meta["embedder"])
 
