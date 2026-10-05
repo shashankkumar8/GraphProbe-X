@@ -367,7 +367,7 @@ All three pipelines use:
 ❌ Real embedding token efficiency  
 ❌ Final hidden evaluation  
 
-**See [`results/RESULT_STATUS.md`](results/RESULT_STATUS.md) for detailed status.**
+**See [`GraphProbe-X-FINAL-2026/results/RESULT_STATUS.md`](GraphProbe-X-FINAL-2026/results/RESULT_STATUS.md) for detailed status.**
 
 ---
 
@@ -382,8 +382,8 @@ TigerGraph Cloud account (free tier works)
 
 ### Installation
 ```bash
-git clone https://github.com/YOUR_USERNAME/GraphProbe-X.git
-cd GraphProbe-X
+git clone https://github.com/shashankkumar8/GraphProbe-X.git
+cd GraphProbe-X/GraphProbe-X-FINAL-2026
 pip install -r requirements.txt
 cp .env.example .env
 # Edit .env: add LLM_API_KEY, TG_* credentials
@@ -476,7 +476,7 @@ python -m benchmark.runner --pipeline agentic --variant no_structured
 
 ## Demo
 
-See [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) for a 3-5 minute walkthrough.
+See [`GraphProbe-X-FINAL-2026/docs/DEMO_SCRIPT.md`](GraphProbe-X-FINAL-2026/docs/DEMO_SCRIPT.md) for a 3-5 minute walkthrough.
 
 **Suggested questions:**
 1. Easy: "Which city hosted the 2016 Summer Olympics?" (RAG sufficient)
@@ -489,7 +489,7 @@ See [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md) for a 3-5 minute walkthrough.
 
 ## Architecture
 
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for detailed diagrams.
+See [`GraphProbe-X-FINAL-2026/docs/ARCHITECTURE.md`](GraphProbe-X-FINAL-2026/docs/ARCHITECTURE.md) for detailed diagrams.
 
 ---
 
@@ -515,7 +515,7 @@ All benchmark results trace to saved per-question JSON with:
 
 ## Judge Q&A
 
-See [`docs/JUDGE_QA.md`](docs/JUDGE_QA.md) for detailed answers to expected competition questions.
+See [`GraphProbe-X-FINAL-2026/docs/JUDGE_QA.md`](GraphProbe-X-FINAL-2026/docs/JUDGE_QA.md) for detailed answers to expected competition questions.
 
 ---
 
@@ -550,7 +550,7 @@ MIT
   title={GraphProbe-X: Evidence-Driven Adaptive Agentic GraphRAG},
   author={Your Team},
   year={2024},
-  url={https://github.com/YOUR_USERNAME/GraphProbe-X}
+  url={https://github.com/shashankkumar8/GraphProbe-X}
 }
 ```
 
