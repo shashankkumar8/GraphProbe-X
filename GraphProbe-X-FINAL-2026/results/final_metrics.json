@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-10-07T22:50:00Z",
+  "git_sha": "0ac511f",
+  "model": "openai/gpt-4o-mini",
+  "embedder": "BAAI/bge-small-en-v1.5 (hash512 fallback)",
+  "metrics": {
+    "rag": {
+      "accuracy": "N/A",
+      "completeness": "N/A",
+      "tokens": "N/A",
+      "latency": "N/A",
+      "status": "DEVELOPMENT_SMOKE"
+    },
+    "graphrag": {
+      "accuracy": "N/A",
+      "completeness": "N/A",
+      "tokens": "N/A",
+      "latency": "N/A",
+      "status": "DEVELOPMENT_SMOKE"
+    },
+    "agentic": {
+      "accuracy": 52.5,
+      "completeness": 52.5,
+      "tokens": 850,
+      "latency": 2.3,
+      "avg_steps": 2.1,
+      "retrieval_methods": ["initial_retrieval", "graph_traverse", "entity_link", "document_retrieve"],
+      "strategy_changes": "67%",
+      "early_stop": "23%",
+      "escalation": "67%",
+      "evidence_gain": "0.042",
+      "status": "REAL_MEASURED",
+      "source": "results/agentic_results.json"
+    }
+  }
+}

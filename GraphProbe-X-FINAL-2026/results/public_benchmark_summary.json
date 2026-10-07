@@ -1,0 +1,31 @@
+{
+  "project": "GraphProbe-X",
+  "benchmark": "Olympic Wikipedia QA Split",
+  "model": "openai/gpt-4o-mini",
+  "pipelines": {
+    "RAG": {
+      "accuracy": 0.0,
+      "avg_tokens": 0.0,
+      "avg_latency_s": 0.0,
+      "sample_size": 100,
+      "status": "DEVELOPMENT_SMOKE"
+    },
+    "GraphRAG": {
+      "accuracy": 0.0,
+      "avg_tokens": 0.0,
+      "avg_latency_s": 0.0,
+      "sample_size": 100,
+      "status": "DEVELOPMENT_SMOKE"
+    },
+    "Agentic_GraphProbe_X": {
+      "accuracy": 0.525,
+      "avg_tokens": 3625.2,
+      "avg_latency_s": 0.0,
+      "sample_size": 120,
+      "avg_steps": 1.23,
+      "escalation_rate": 0.1,
+      "early_stop_rate": 0.25,
+      "status": "DEVELOPMENT_SMOKE"
+    }
+  }
+}

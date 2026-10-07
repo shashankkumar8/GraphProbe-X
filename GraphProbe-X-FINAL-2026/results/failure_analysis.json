@@ -1,0 +1,11 @@
+{
+  "categories": {
+    "RETRIEVAL_MISS": 18,
+    "ENTITY_LINKING_FAIL": 15,
+    "LLM_TIMEOUT_TRANSIENT": 16,
+    "TIGERGRAPH_CONN_ERROR": 8
+  },
+  "total_errors": 57,
+  "total_analyzed": 120,
+  "notes": "Error analysis conducted on 120-question agentic smoke dataset. Failures are non-fatal and isolated."
+}

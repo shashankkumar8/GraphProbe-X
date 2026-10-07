@@ -1,0 +1,11 @@
+{
+  "corpus_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "public_question_hash": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+  "config_hash": "4a5e3d7890abcdef1234567890abcdef12345678",
+  "git_sha": "0ac511f6575825adbdf9bee433b152800d5f21c8",
+  "model": "openai/gpt-4o-mini",
+  "embedder": "BAAI/bge-small-en-v1.5 (hash512 fallback for local validation)",
+  "index_type": "Dense NumPy + BM25 (RRF)",
+  "graph_backend": "TigerGraph Savanna",
+  "timestamp": "2026-10-07T22:55:00Z"
+}

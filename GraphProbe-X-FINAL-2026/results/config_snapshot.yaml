@@ -1,0 +1,104 @@
+agentic:
+  answer_chunks: 4
+  coverage_threshold: 0.99
+  disabled_tools: []
+  extract_chunks: 6
+  extract_words: 200
+  gain_decay: 0.5
+  initial_k: 5
+  judge_mode: contract
+  max_llm_calls: 10
+  max_steps: 6
+  max_tokens: 10000
+  min_dense_score: 0.35
+  min_gain: 0.05
+  patience: 2
+  planner: utility
+  use_memory: true
+chunk:
+  max_words: 220
+  overlap_words: 40
+data:
+  corpus: data/raw/corpus/corpus.jsonl
+  fields:
+    answer:
+    - answer
+    - gold
+    - gold_answer
+    - answers
+    - ground_truth
+    doc_id:
+    - id
+    - doc_id
+    - _id
+    - docid
+    q_id:
+    - id
+    - qid
+    - question_id
+    - _id
+    question:
+    - question
+    - query
+    text:
+    - text
+    - contents
+    - content
+    - body
+    title:
+    - title
+    - name
+  hidden: data/raw/questions/eval_hidden.jsonl
+  public: data/raw/questions/eval_public.jsonl
+eval:
+  gold_list_semantics: any
+graph:
+  backend: memory
+  cand_limit: 300
+  hops: 2
+  hub_df: 300
+graphrag:
+  graph_k: 4
+  vector_k: 4
+llm:
+  answer_max_tokens: 300
+  cache_dir: cache/llm
+  json_mode: true
+  max_output_tokens: 500
+  max_tokens_param: max_tokens
+  model: openai/gpt-4o-mini
+  prompt_version: v1
+  retries: 3
+  temperature: 0
+  timeout_s: 90
+paths:
+  processed: data/processed
+  results: results
+rag_matched:
+  k: null
+retrieval:
+  candidates: 40
+  dense_model: BAAI/bge-small-en-v1.5
+  k: 8
+  rrf_k: 60
+structured:
+  answer_fields:
+  - event
+  - title
+  count_fields:
+  - competitors
+  - competitor_count
+  - num_competitors
+  - participants
+  - athletes
+  facet_fields:
+  - games
+  - sport
+  - discipline
+  - event
+  - venue
+  - city
+  - year
+  - date
+  - nations
+  max_support: 25

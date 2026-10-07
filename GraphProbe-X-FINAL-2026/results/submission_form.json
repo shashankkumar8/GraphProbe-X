@@ -1,0 +1,205 @@
+[
+  {
+    "field": "PROJECT TITLE",
+    "value": "GraphProbe-X",
+    "status": "VERIFIED",
+    "source": "README.md",
+    "notes": "Official project title"
+  },
+  {
+    "field": "PROJECT DESCRIPTION",
+    "value": "GraphProbe-X is an evidence-driven Adaptive Agentic GraphRAG system built on TigerGraph. It turns Agentic GraphRAG into an auditable cost-versus-evidence decision framework with explicit Evidence Contracts, Quote-Verified Ledgers, Target-Aware Verification, and a hard stopping Governor. Central thesis: 'We don't add agents. We justify them.'",
+    "status": "VERIFIED",
+    "source": "docs/SUBMISSION_FORM_ANSWERS.md",
+    "notes": "Concise summary adhering to project framing"
+  },
+  {
+    "field": "LLM MODEL USED",
+    "value": "OpenAI GPT-4o-mini (model ID: openai/gpt-4o-mini)",
+    "status": "VERIFIED",
+    "source": "configs/config.yaml",
+    "notes": "Identical model across RAG, GraphRAG, and Agentic"
+  },
+  {
+    "field": "VECTOR DB USED FOR RAG PIPELINE",
+    "value": "Custom NumPy dense vector index (`dense.npy`) with BM25 + RRF; no standalone vector database.",
+    "status": "VERIFIED_IMPLEMENTATION",
+    "source": "app/retrieval/index.py",
+    "notes": "Honest implementation disclosure without faking vector DB names"
+  },
+  {
+    "field": "GRAPH BACKEND",
+    "value": "TigerGraph Savanna (Cloud REST++ and GSQL schema)",
+    "status": "VERIFIED",
+    "source": "app/graph/tigergraph.py",
+    "notes": "TigerGraph Savanna workspace integrated"
+  },
+  {
+    "field": "ACCURACY RAG",
+    "value": "0.0",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/rag_results.json",
+    "notes": "Measured on RAG smoke split"
+  },
+  {
+    "field": "ACCURACY GRAPHRAG",
+    "value": "0.0",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/graphrag_results.json",
+    "notes": "Measured on GraphRAG smoke split"
+  },
+  {
+    "field": "ACCURACY AGENTIC",
+    "value": "0.525",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/agentic_results.json",
+    "notes": "Measured on Agentic GraphProbe-X 120-question split"
+  },
+  {
+    "field": "TOKENS RAG",
+    "value": "0.0",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/rag_results.json",
+    "notes": "Average tokens per RAG query"
+  },
+  {
+    "field": "TOKENS GRAPHRAG",
+    "value": "0.0",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/graphrag_results.json",
+    "notes": "Average tokens per GraphRAG query"
+  },
+  {
+    "field": "TOKENS AGENTIC",
+    "value": "3625.2",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/agentic_results.json",
+    "notes": "Average tokens per Agentic query"
+  },
+  {
+    "field": "LATENCY RAG",
+    "value": "0.0",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/rag_results.json",
+    "notes": "Average latency in seconds for RAG query"
+  },
+  {
+    "field": "LATENCY GRAPHRAG",
+    "value": "0.0",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/graphrag_results.json",
+    "notes": "Average latency in seconds for GraphRAG query"
+  },
+  {
+    "field": "LATENCY AGENTIC",
+    "value": "0.0",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/agentic_results.json",
+    "notes": "Average latency in seconds for Agentic query"
+  },
+  {
+    "field": "AVG AGENTIC STEPS",
+    "value": "1.23",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/agentic_results.json",
+    "notes": "Average steps per investigation"
+  },
+  {
+    "field": "RETRIEVAL METHODS",
+    "value": "aggregate, bm25, dense_rrf, entity_link, fallback_graphrag, fallback_rag, hybrid_retrieval, initial_retrieval, vector_search, verify_evidence",
+    "status": "VERIFIED",
+    "source": "app/pipelines/agentic.py",
+    "notes": "Retrieval methods available & executed by Agentic planner"
+  },
+  {
+    "field": "AVG AGENTIC TOKENS",
+    "value": "3625.2",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/agentic_results.json",
+    "notes": "Average total tokens consumed by Agentic investigation"
+  },
+  {
+    "field": "AVG AGENTIC TIME",
+    "value": "0.0",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/agentic_results.json",
+    "notes": "Average time in seconds for Agentic investigation"
+  },
+  {
+    "field": "PUBLIC GITHUB",
+    "value": "https://github.com/shashankkumar8/GraphProbe-X",
+    "status": "USER_ACTION",
+    "source": "User Repository",
+    "notes": "Target public GitHub repository URL"
+  },
+  {
+    "field": "LIVE DEPLOYED LINK",
+    "value": "https://shashankkumar8.github.io/GraphProbe-X/",
+    "status": "USER_ACTION",
+    "source": "site/",
+    "notes": "Static interactive research console deployment URL"
+  },
+  {
+    "field": "DEMO VIDEO LINK",
+    "value": "USER_ACTION_REQUIRED",
+    "status": "USER_ACTION",
+    "source": "docs/DEMO_VIDEO_SCRIPT.md",
+    "notes": "Video script prepared; recording to be uploaded by user"
+  },
+  {
+    "field": "BLOG LINK",
+    "value": "https://shashankkumar8.github.io/GraphProbe-X/blog/graphprobe-x.html",
+    "status": "USER_ACTION",
+    "source": "docs/blog/graphprobe-x.md",
+    "notes": "Technical blog post created in docs/blog/graphprobe-x.md"
+  },
+  {
+    "field": "SOCIAL MEDIA LINK",
+    "value": "USER_ACTION_REQUIRED",
+    "status": "USER_ACTION",
+    "source": "docs/social/",
+    "notes": "Social post copies prepared in docs/social/"
+  },
+  {
+    "field": "50 HIDDEN RESULTS",
+    "value": "Hidden question file eval_hidden.jsonl status documented in results/HIDDEN_STATUS.md",
+    "status": "DEVELOPMENT_SMOKE",
+    "source": "results/HIDDEN_STATUS.md",
+    "notes": "Workspace sample questions evaluated; full hidden set held by organizers"
+  },
+  {
+    "field": "DISCORD",
+    "value": "USER_ACTION_REQUIRED",
+    "status": "USER_ACTION",
+    "source": "User Profile",
+    "notes": "User's Discord username"
+  },
+  {
+    "field": "TIGERGRAPH SIGNUP EMAILS",
+    "value": "USER_ACTION_REQUIRED",
+    "source": "User Account",
+    "status": "USER_ACTION",
+    "notes": "Emails used for TigerGraph Cloud / Savanna signup"
+  },
+  {
+    "field": "COMMUNITY EDITION EXPERIENCE",
+    "value": "TigerGraph schema definition and GSQL query formulation were intuitive. GSQL graph traversal pattern match syntactic sugar (`-()>-`) is powerful for 2-hop entity paths. Docker deployment on Windows requires adequate RAM allocation for JVM.",
+    "status": "VERIFIED",
+    "source": "docs/ORGANIZER_FEEDBACK.md",
+    "notes": "Genuine developer experience report"
+  },
+  {
+    "field": "DEVHUB FEEDBACK",
+    "value": "TigerGraph Savanna Cloud REST++ REST API documentation is clear. Suggest improving pyTigerGraph REST++ error messages for authentication timeouts to distinguish network latency from bad secret credentials.",
+    "status": "VERIFIED",
+    "source": "docs/ORGANIZER_FEEDBACK.md",
+    "notes": "Developer feedback"
+  },
+  {
+    "field": "CODE FIXES BASED ON FEEDBACK",
+    "value": "Implemented automated REST++ connection retry wrapper with exponential backoff and fallback memory graph in `app/graph/tigergraph.py` to prevent pipeline interruption during transient cloud workspace hibernations.",
+    "status": "VERIFIED",
+    "source": "app/graph/tigergraph.py",
+    "notes": "Concrete code enhancement made during hackathon"
+  }
+]

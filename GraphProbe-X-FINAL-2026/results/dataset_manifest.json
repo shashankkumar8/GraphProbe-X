@@ -1,0 +1,8 @@
+{
+  "corpus_name": "Olympic Wikipedia QA",
+  "total_documents": 2951,
+  "total_chunks": 24695,
+  "total_entities": 54194,
+  "public_questions": 100,
+  "hidden_questions": 6
+}
